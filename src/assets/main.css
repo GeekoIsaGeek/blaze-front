@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: rgb(255, 20, 127);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 20, 127, 1) 0%,
+    rgba(253, 29, 90, 1) 50%,
+    rgba(252, 127, 69, 1) 100%
+  );
+}
