@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  color: inherit;
+}
+
 body {
   display: flex;
   justify-content: center;
@@ -14,4 +21,5 @@ body {
     rgba(253, 29, 90, 1) 50%,
     rgba(252, 127, 69, 1) 100%
   );
+  color: white;
 }

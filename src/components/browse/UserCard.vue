@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import UserCardButtons from '@/components/home/UserCardButtons.vue'
-import UserCardIndicators from '@/components/home/UserCardIndicators.vue'
+import UserCardButtons from '@/components/browse/UserCardButtons.vue'
+import UserCardIndicators from '@/components/browse/UserCardIndicators.vue'
 import { useMeetingPersonStore } from '@/stores/MeetingPersonStore'
 import { storeToRefs } from 'pinia'
 

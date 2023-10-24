@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import UserCard from '@/components/home/UserCard.vue'
+import UserCard from '@/components/browse/UserCard.vue'
 import TheFireIcon from '@/components/icons/TheFireIcon.vue'
 import TheProfileIcon from '@/components/icons/TheProfileIcon.vue'
 import TheChatIcon from '@/components/icons/TheChatIcon.vue'
