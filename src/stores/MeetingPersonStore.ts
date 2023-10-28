@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { type Person } from '@/types/MeetingPerson'
 
-export const useMeetingPersonStore = defineStore('meeting', () => {
+export const useMeetingPersonStore = defineStore('meetingPerson', () => {
   const person = ref<Person>({
     name: '',
     age: '',
