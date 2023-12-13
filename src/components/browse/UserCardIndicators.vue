@@ -6,7 +6,7 @@ const { person, currentPhoto } = storeToRefs(useMeetingPersonStore())
 </script>
 
 <template>
-  <ul class="flex gap-1 px-3 absolute top-2 list-none w-full">
+  <ul class="flex gap-1 px-4 absolute top-2 list-none w-full">
     <li
       v-for="(image, i) in person.photos"
       :key="i"

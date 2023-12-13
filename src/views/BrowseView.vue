@@ -6,20 +6,16 @@ import TheChatIcon from '@/components/icons/TheChatIcon.vue'
 </script>
 
 <template>
-  <div class="bg-white rounded-xl min-h-max shadow-lg">
-    <UserCard />
-    <div class="bg-white rounded-b-xl px-[3%] py-7 flex justify-around">
-      <button>
-        <TheFireIcon class="w-[28px] hover:scale-[120%] transition-transform linear duration-200" />
-      </button>
-      <button>
-        <TheChatIcon class="w-[28px] hover:scale-[120%] transition-transform linear duration-200" />
-      </button>
-      <button>
-        <TheProfileIcon
-          class="w-[28px] hover:scale-[120%] transition-transform linear duration-200"
-        />
-      </button>
-    </div>
+  <UserCard />
+  <div class="h-[10%] desktop:h-[12%] rounded-b-xl px-[3%] py-7 flex justify-around">
+    <button>
+      <TheFireIcon class="navigationButton hover:navigationButtonH" />
+    </button>
+    <button>
+      <TheChatIcon class="navigationButton hover:navigationButtonH" />
+    </button>
+    <button>
+      <TheProfileIcon class="navigationButton hover:navigationButtonH" />
+    </button>
   </div>
 </template>
