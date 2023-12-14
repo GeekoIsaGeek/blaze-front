@@ -24,3 +24,6 @@ export const loginSchema = yup.object({
   email: yup.string().required().email(),
   password: yup.string().required().min(8)
 })
+
+export type RegistrationSchema = typeof registrationSchema
+export type LoginSchema = typeof loginSchema

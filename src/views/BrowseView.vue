@@ -7,7 +7,7 @@ import TheChatIcon from '@/components/icons/TheChatIcon.vue'
 
 <template>
   <UserCard />
-  <div class="h-[10%] desktop:h-[12%] rounded-b-xl px-[3%] py-7 flex justify-around">
+  <div class="h-[10%] rounded-b-xl px-[3%] py-7 flex justify-around">
     <button>
       <TheFireIcon class="navigationButton hover:navigationButtonH" />
     </button>

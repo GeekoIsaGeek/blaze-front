@@ -14,7 +14,7 @@ const { currentPhoto } = storeToRefs(useMeetingPersonStore())
       class="bg-gradient-to-t from-black/80 desktop:from-black/60 from-20% to-60% to-transparent w-full h-full absolute top-0 left-0"
     ></div>
 
-    <img :src="currentPhoto" class="h-full w-full rounded-t-xl rounded-b-xl object-cover" />
+    <img :src="currentPhoto" class="h-full w-full rounded-t-xl object-cover" />
     <UserCardIndicators />
 
     <div class="w-full h-full top-0 absolute left-0 flex rounded-lg">

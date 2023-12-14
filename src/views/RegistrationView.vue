@@ -6,11 +6,10 @@ import logo from '/public/favicon.svg'
 import { RouterLink } from 'vue-router'
 import { registrationSchema } from '@/schemas/Auth'
 import request from '@/config/axiosInstance'
-import { type RegistrationFields } from '@/types/AuthFormFields'
-import { useRouter } from 'vue-router'
+import type { RegistrationFields } from '@/types/AuthFormFields'
 import { ref } from 'vue'
+import AuthLayout from '@/layouts/AuthLayout.vue'
 
-const router = useRouter()
 const showSuccessMessage = ref(false)
 
 const { handleSubmit } = useForm<RegistrationFields>({
@@ -27,15 +26,12 @@ const handleRegistration = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <form
-    @submit="handleRegistration"
-    class="flex flex-col items-center justify-center gap-3 bg-white rounded-md px-20 py-32 max-w-[400px] shadow-lg w-full"
-  >
+  <AuthLayout :submitHandler="handleRegistration">
     <img :src="logo" class="w-[50px] mb-10" />
     <div v-if="showSuccessMessage" class="text-primary font-semibold text-xl">
       Registration succeed!
     </div>
-    <div class="flex flex-col items-center justify-center gap-3" v-else>
+    <div class="flex flex-col items-center justify-center gap-3 w-full" v-else>
       <FormField name="username" type="text" placeholder="Username" />
       <FormField name="email" type="email" placeholder="Email" />
       <FormField name="birthdate" type="date" class="w-full" />
@@ -44,5 +40,5 @@ const handleRegistration = handleSubmit(async (values) => {
       <SubmitButton content="Register" />
     </div>
     <RouterLink to="/login" class="text-fadedPrimary underline">Log in</RouterLink>
-  </form>
+  </AuthLayout>
 </template>
