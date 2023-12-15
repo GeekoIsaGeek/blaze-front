@@ -10,8 +10,11 @@ import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import type { ErrorResponse } from '@/types/Server'
+import { useUserStore } from '@/stores/UserStore'
+import { storeToRefs } from 'pinia'
 
 const router = useRouter()
+const { isAuthenticated } = storeToRefs(useUserStore())
 const serverError = ref('')
 
 const { handleSubmit } = useForm<LoginFields>({
@@ -22,6 +25,7 @@ const handleLogin = handleSubmit(async (values) => {
   try {
     await axios.get(`${import.meta.env.VITE_SERVER_URL}/sanctum/csrf-cookie`)
     await request.post('/api/login', values)
+    isAuthenticated.value = true
     router.push('/profile')
   } catch (error) {
     const errorResponse = error as ErrorResponse

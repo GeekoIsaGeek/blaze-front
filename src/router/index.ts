@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import BrowseView from '@/views/BrowseView.vue'
+import FeedView from '@/views/FeedView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegistrationView from '@/views/RegistrationView.vue'
 import ProfileView from '@/views/ProfileView.vue'
@@ -10,8 +10,12 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'browse',
-      component: BrowseView
+      redirect: { name: 'feed' }
+    },
+    {
+      path: '/feed',
+      name: 'feed',
+      component: FeedView
     },
     {
       path: '/:catchAll(.*)',
@@ -36,9 +40,10 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from) => {
-  const user = useUserStore().user
-  if (to.path === '/profile') {
-    if (user.id) {
+  const userStore = useUserStore()
+
+  if (to.path === '/profile' || to.path === '/feed') {
+    if (userStore.isAuthenticated) {
       return true
     } else {
       return { name: 'login' }
