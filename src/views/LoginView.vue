@@ -1,24 +1,37 @@
 <script setup lang="ts">
 import FormField from '@/components/UI/FormField.vue'
 import SubmitButton from '@/components/UI/SubmitButton.vue'
-import logo from '/public/favicon.svg'
 import AuthLayout from '@/layouts/AuthLayout.vue'
 import { useForm } from 'vee-validate'
 import type { LoginFields } from '@/types/AuthFormFields'
 import { loginSchema } from '@/schemas/Auth'
+import request from '@/config/axiosInstance'
+import axios from 'axios'
+import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+import type { ErrorResponse } from '@/types/Server'
+
+const router = useRouter()
+const serverError = ref('')
 
 const { handleSubmit } = useForm<LoginFields>({
   validationSchema: loginSchema
 })
 
-const handleLogin = handleSubmit(async () => {
-  return
+const handleLogin = handleSubmit(async (values) => {
+  try {
+    await axios.get(`${import.meta.env.VITE_SERVER_URL}/sanctum/csrf-cookie`)
+    await request.post('/api/login', values)
+    router.push('/profile')
+  } catch (error) {
+    const errorResponse = error as ErrorResponse
+    serverError.value = errorResponse.response.data.message
+  }
 })
 </script>
 
 <template>
-  <AuthLayout :submitHandler="handleLogin">
-    <img :src="logo" class="w-[50px] mb-10" />
+  <AuthLayout :submitHandler="handleLogin" :serverError="serverError">
     <FormField name="email" type="email" placeholder="Email" />
     <FormField name="password" type="password" placeholder="Password" />
     <SubmitButton content="Log in" />

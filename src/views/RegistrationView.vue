@@ -2,7 +2,6 @@
 import { useForm } from 'vee-validate'
 import FormField from '@/components/UI/FormField.vue'
 import SubmitButton from '@/components/UI/SubmitButton.vue'
-import logo from '/public/favicon.svg'
 import { RouterLink } from 'vue-router'
 import { registrationSchema } from '@/schemas/Auth'
 import request from '@/config/axiosInstance'
@@ -11,6 +10,7 @@ import { ref } from 'vue'
 import AuthLayout from '@/layouts/AuthLayout.vue'
 
 const showSuccessMessage = ref(false)
+const serverError = ref('')
 
 const { handleSubmit } = useForm<RegistrationFields>({
   validationSchema: registrationSchema
@@ -18,16 +18,17 @@ const { handleSubmit } = useForm<RegistrationFields>({
 
 const handleRegistration = handleSubmit(async (values) => {
   const { username, email, password, birthdate } = values
-  const response = await request.post('/register', { username, email, password, birthdate })
+  const response = await request.post('/api/register', { username, email, password, birthdate })
   if (response.status === 200) {
     showSuccessMessage.value = true
+  } else {
+    serverError.value = response.data.error
   }
 })
 </script>
 
 <template>
-  <AuthLayout :submitHandler="handleRegistration">
-    <img :src="logo" class="w-[50px] mb-10" />
+  <AuthLayout :submitHandler="handleRegistration" :serverError="serverError">
     <div v-if="showSuccessMessage" class="text-primary font-semibold text-xl">
       Registration succeed!
     </div>

@@ -3,6 +3,7 @@ import UserCard from '@/components/browse/UserCard.vue'
 import TheFireIcon from '@/components/icons/TheFireIcon.vue'
 import TheProfileIcon from '@/components/icons/TheProfileIcon.vue'
 import TheChatIcon from '@/components/icons/TheChatIcon.vue'
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
@@ -14,8 +15,8 @@ import TheChatIcon from '@/components/icons/TheChatIcon.vue'
     <button>
       <TheChatIcon class="navigationButton hover:navigationButtonH" />
     </button>
-    <button>
+    <RouterLink :to="{ name: 'profile' }">
       <TheProfileIcon class="navigationButton hover:navigationButtonH" />
-    </button>
+    </RouterLink>
   </div>
 </template>
