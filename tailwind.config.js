@@ -7,7 +7,8 @@ export default {
         fadedPrimary: '#EF4A75',
         hotpink: '#ff147f',
         pinkishRed: '#fd1d5a',
-        orange: '#fc7f45'
+        orange: '#fc7f45',
+        active: '#ff0059'
       },
       screens: {
         desktop: '640px'

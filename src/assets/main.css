@@ -12,10 +12,19 @@
 @layer utilities {
   .navigationButton {
     width: 28px;
-    transition: transform linear 0.2s;
+    transition:
+      transform 0.2s linear,
+      fill 0.2s ease-out;
   }
   .navigationButtonH {
     transform: scale(120%);
+  }
+  .btnTransition {
+    transition:
+      color 0.15s ease-out,
+      transform 0.3s ease-out,
+      fill 0.2s ease-in-out,
+      background-color 0.25s ease-out;
   }
   .mainWrapperShadow {
     box-shadow:

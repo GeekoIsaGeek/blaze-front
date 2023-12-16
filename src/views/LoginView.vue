@@ -25,7 +25,7 @@ const handleLogin = handleSubmit(async (values) => {
     await request.get('/sanctum/csrf-cookie')
     const { data } = await request.post('/api/login', values)
     user.value = data
-    router.push('/profile')
+    router.push('/feed')
   } catch (error) {
     const errorResponse = error as ErrorResponse
     serverError.value = errorResponse.response.data.message
