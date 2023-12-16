@@ -18,10 +18,6 @@ const router = createRouter({
       component: FeedView
     },
     {
-      path: '/:catchAll(.*)',
-      redirect: '/'
-    },
-    {
       path: '/login',
       name: 'login',
       component: LoginView
@@ -35,12 +31,20 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: ProfileView
+    },
+    {
+      path: '/:catchAll(.*)',
+      redirect: '/'
     }
   ]
 })
 
-router.beforeEach((to, from) => {
+router.beforeEach(async (to, from) => {
   const userStore = useUserStore()
+
+  if (!userStore.isAuthenticated) {
+    await userStore.retrieveUserData()
+  }
 
   if (to.path === '/profile' || to.path === '/feed') {
     if (userStore.isAuthenticated) {

@@ -6,7 +6,6 @@ import { useForm } from 'vee-validate'
 import type { LoginFields } from '@/types/AuthFormFields'
 import { loginSchema } from '@/schemas/Auth'
 import request from '@/config/axiosInstance'
-import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import type { ErrorResponse } from '@/types/Server'
@@ -14,7 +13,7 @@ import { useUserStore } from '@/stores/UserStore'
 import { storeToRefs } from 'pinia'
 
 const router = useRouter()
-const { isAuthenticated } = storeToRefs(useUserStore())
+const { user } = storeToRefs(useUserStore())
 const serverError = ref('')
 
 const { handleSubmit } = useForm<LoginFields>({
@@ -23,9 +22,9 @@ const { handleSubmit } = useForm<LoginFields>({
 
 const handleLogin = handleSubmit(async (values) => {
   try {
-    await axios.get(`${import.meta.env.VITE_SERVER_URL}/sanctum/csrf-cookie`)
-    await request.post('/api/login', values)
-    isAuthenticated.value = true
+    await request.get('/sanctum/csrf-cookie')
+    const { data } = await request.post('/api/login', values)
+    user.value = data
     router.push('/profile')
   } catch (error) {
     const errorResponse = error as ErrorResponse
