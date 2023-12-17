@@ -7,7 +7,7 @@ defineProps<{
 <template>
   <button
     type="submit"
-    class="w-full px-[5dvw] sm:px-8 py-1 bg-primary hover:bg-fadedPrimary text-white transition-colors ease-out rounded-[7px]"
+    class="w-full px-[5dvw] sm:px-8 py-1 bg-primary/80 hover:bg-primary text-white transition-colors ease-out rounded-[7px]"
   >
     {{ content }}
   </button>
