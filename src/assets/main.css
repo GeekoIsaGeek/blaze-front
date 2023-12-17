@@ -19,12 +19,16 @@
   .navigationButtonH {
     transform: scale(120%);
   }
-  .btnTransition {
+  .transitions {
     transition:
       color 0.15s ease-out,
       transform 0.3s ease-out,
       fill 0.2s ease-in-out,
-      background-color 0.25s ease-out;
+      background-color 0.25s ease-out,
+      filter 0.25s ease-out;
+  }
+  ::-webkit-scrollbar {
+    display: none;
   }
   .mainWrapperShadow {
     box-shadow:
