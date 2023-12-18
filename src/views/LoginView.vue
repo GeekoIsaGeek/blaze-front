@@ -11,6 +11,7 @@ import { ref } from 'vue'
 import type { ErrorResponse } from '@/types/Server'
 import { useUserStore } from '@/stores/UserStore'
 import { storeToRefs } from 'pinia'
+import { setToken } from '@/helpers/tokens'
 
 const router = useRouter()
 const { user } = storeToRefs(useUserStore())
@@ -22,11 +23,12 @@ const { handleSubmit } = useForm<LoginFields>({
 
 const handleLogin = handleSubmit(async (values) => {
   try {
-    await request.get('/sanctum/csrf-cookie')
     const { data } = await request.post('/api/login', values)
-    user.value = data
+    user.value = data.user
+    setToken('auth', data.token)
     router.push('/feed')
   } catch (error) {
+    console.log(error)
     const errorResponse = error as ErrorResponse
     serverError.value = errorResponse.response.data.message
   }
@@ -41,3 +43,4 @@ const handleLogin = handleSubmit(async (values) => {
     <RouterLink to="/register" class="text-fadedPrimary underline">Register</RouterLink>
   </AuthLayout>
 </template>
+@/helpers/tokens

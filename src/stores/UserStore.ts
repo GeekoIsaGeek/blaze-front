@@ -2,6 +2,7 @@ import type { User } from '@/types/Pinia'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import request from '@/config/axiosInstance'
+import { getToken } from '@/helpers/tokens'
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<User>()
@@ -9,15 +10,22 @@ export const useUserStore = defineStore('user', () => {
 
   const retrieveUserData = async () => {
     try {
-      await request.get('/sanctum/csrf-cookie')
-      const response = await request.get('/api/user')
+      const response = await request.get('/api/user', {
+        headers: {
+          Authorization: `Bearer ${getToken('auth')}`
+        }
+      })
       user.value = response.data
     } catch (error) {
+      console.log(error)
       return
     }
   }
 
+  const updatePhotos = (imageObj: { id: string; src: string }) => {
+    user.value!.photos = [...user.value!.photos, imageObj]
+  }
   const clearUser = (): void => (user.value = undefined)
 
-  return { user, isAuthenticated, retrieveUserData, clearUser }
+  return { user, isAuthenticated, retrieveUserData, clearUser, updatePhotos }
 })

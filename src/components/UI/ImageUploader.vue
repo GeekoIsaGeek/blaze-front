@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import TheAddImageIcon from '@/components/icons/TheAddImageIcon.vue'
 import DialogModal from './DialogModal.vue'
+import useUploadPhoto from '@/composables/useUploadPhoto'
+import { useUserStore } from '@/stores/UserStore'
 import { ref } from 'vue'
 
 const emit = defineEmits<{
@@ -11,14 +13,27 @@ defineProps<{
   image: string | undefined
 }>()
 
+const { uploadPhoto } = useUploadPhoto()
+const { updatePhotos } = useUserStore()
+
 const selectedImage = ref()
 const canShowModal = ref(false)
+
+const setUploadedImage = (imagePath: string) => {
+  emit('setImage', imagePath)
+  updatePhotos({ id: imagePath, src: imagePath })
+}
+
+const handleUpload = () => {
+  uploadPhoto(selectedImage.value, setUploadedImage)
+  canShowModal.value = false
+}
 
 const handleChange = (e: Event) => {
   const target = e.currentTarget as HTMLInputElement
   const selectedFile = (target.files as FileList)[0]
 
-  if (selectedFile) {
+  if (selectedFile && selectedFile.size < 2 * 1024 * 1024) {
     selectedImage.value = selectedFile
     canShowModal.value = true
   }
@@ -39,7 +54,8 @@ const handleChange = (e: Event) => {
     />
     <DialogModal
       @closeModal="() => (canShowModal = false)"
-      dialogQuestion="Do you really want to proceed uploading a photo?"
+      @handler="handleUpload"
+      dialogQuestion="Do you really want to proceed uploading the photo?"
       v-if="canShowModal"
     />
   </div>

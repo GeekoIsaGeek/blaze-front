@@ -3,5 +3,8 @@ export interface User {
   birthdate: string
   email: string
   username: string
-  photos: string[]
+  photos: {
+    id: string
+    src: string
+  }[]
 }

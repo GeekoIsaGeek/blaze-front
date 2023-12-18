@@ -2,10 +2,7 @@ import axios from 'axios'
 
 const request = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
-  headers: {
-    'Access-Control-Allow-Origin': 'http://localhost:5173'
-  }
+  withCredentials: true
 })
-request.defaults.withCredentials = true
 
 export default request
