@@ -4,7 +4,7 @@ export interface User {
   email: string
   username: string
   photos: {
-    id: string
-    src: string
+    id: number
+    url: string
   }[]
 }

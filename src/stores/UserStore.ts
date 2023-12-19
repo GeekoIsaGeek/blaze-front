@@ -22,10 +22,14 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  const updatePhotos = (imageObj: { id: string; src: string }) => {
+  const updatePhotos = (imageObj: { id: number; url: string }) => {
     user.value!.photos = [...user.value!.photos, imageObj]
   }
+  const removePhoto = (id: number) => {
+    user.value!.photos = user.value!.photos.filter((photo) => photo.id !== id)
+  }
+
   const clearUser = (): void => (user.value = undefined)
 
-  return { user, isAuthenticated, retrieveUserData, clearUser, updatePhotos }
+  return { user, isAuthenticated, retrieveUserData, clearUser, updatePhotos, removePhoto }
 })

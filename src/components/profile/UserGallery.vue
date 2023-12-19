@@ -10,7 +10,7 @@ const userPhotos = useUserStore()?.user?.photos || []
 
 const galleryItems = computed(() => [
   ...userPhotos,
-  ...populateArrayForRendering(GALLERY_LIMIT - userPhotos.length, ['src'])
+  ...populateArrayForRendering(GALLERY_LIMIT - userPhotos.length, ['url'])
 ])
 </script>
 
@@ -22,7 +22,8 @@ const galleryItems = computed(() => [
       <div class="grid grid-cols-3 w-full gap-4">
         <UserGalleryCard
           v-for="item in galleryItems"
-          :image="getPhotoUrl(item?.src)"
+          :url="getPhotoUrl(item?.url as string)"
+          :id="+item.id"
           :key="item.id"
         />
       </div>

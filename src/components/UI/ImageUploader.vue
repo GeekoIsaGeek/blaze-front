@@ -4,28 +4,28 @@ import DialogModal from './DialogModal.vue'
 import useUploadPhoto from '@/composables/useUploadPhoto'
 import { useUserStore } from '@/stores/UserStore'
 import { ref } from 'vue'
+import { getPhotoUrl } from '@/helpers/string'
 
 const emit = defineEmits<{
-  setImage: [selected: string]
+  setPhoto: [selected: string]
 }>()
 
 defineProps<{
-  image: string | undefined
+  photo: string | undefined
 }>()
 
 const { uploadPhoto } = useUploadPhoto()
 const { updatePhotos } = useUserStore()
 
-const selectedImage = ref()
+const selectedImage = ref<File>()
 const canShowModal = ref(false)
 
-const setUploadedImage = (imagePath: string) => {
-  emit('setImage', imagePath)
-  updatePhotos({ id: imagePath, src: imagePath })
-}
-
-const handleUpload = () => {
-  uploadPhoto(selectedImage.value, setUploadedImage)
+const handleUpload = async () => {
+  const uploadedPhoto = await uploadPhoto(selectedImage.value!)
+  if (uploadedPhoto?.url) {
+    emit('setPhoto', getPhotoUrl(uploadedPhoto.url))
+    updatePhotos(uploadedPhoto)
+  }
   canShowModal.value = false
 }
 

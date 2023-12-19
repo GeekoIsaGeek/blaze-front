@@ -1,20 +1,19 @@
 import request from '@/config/axiosInstance'
-import { getPhotoUrl } from '@/helpers/string'
 import { getToken } from '@/helpers/tokens'
 
 const useUploadPhoto = () => {
-  const uploadPhoto = async (image: File, setImage: (path: string) => void) => {
+  const uploadPhoto = async (image: File) => {
     try {
       if (image) {
         const formData = new FormData()
         formData.append('image', image)
 
-        const response = await request.post('/api/upload-photo', formData, {
+        const response = await request.post('/api/photos/upload', formData, {
           headers: {
             Authorization: `Bearer ${getToken('auth')}`
           }
         })
-        setImage(getPhotoUrl(response.data.image.src))
+        return response.data.image as { url: string; id: number }
       }
     } catch (e) {
       return
