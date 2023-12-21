@@ -7,4 +7,8 @@ export interface User {
     id: number
     url: string
   }[]
+  interests: {
+    id: number
+    interest: string
+  }[]
 }

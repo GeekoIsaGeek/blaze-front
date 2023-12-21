@@ -15,7 +15,7 @@ const galleryItems = computed(() => [
 </script>
 
 <template>
-  <div class="overflow-auto max-h-[84vh] desktop:max-h-[650px]">
+  <div class="overflow-auto max-h-[84vh] desktop:max-h-[650px] px-3">
     <div class="flex flex-col items-start gap-3 py-4">
       <h3 class="font-semibold uppercase">Photos</h3>
 
