@@ -62,7 +62,7 @@ const handleMouseUp = () => (startY.value = 0)
         enter-to-class="opacity-100 translate-y-0 transition-all duration-500 delay-[0.25s] ease-out"
       >
         <div
-          class="bg-white h-max w-full absolute bottom-0 rounded-t-xl shadow-xl flex flex-col select-none"
+          class="bg-white max-h-[100vh] overflow-y-auto h-4/5 w-full absolute bottom-0 rounded-t-xl shadow-xl flex flex-col select-none"
           @click.stop
         >
           <div
@@ -76,7 +76,7 @@ const handleMouseUp = () => (startY.value = 0)
           >
             <div class="bg-gray-500 w-1/4 h-1 rounded-full my-2 mx-auto"></div>
           </div>
-          <div class="px-4 pt-5">
+          <div class="px-4 py-5">
             <slot />
           </div>
         </div>

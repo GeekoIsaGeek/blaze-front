@@ -31,5 +31,12 @@ export const useUserStore = defineStore('user', () => {
 
   const clearUser = (): void => (user.value = undefined)
 
-  return { user, isAuthenticated, retrieveUserData, clearUser, updatePhotos, removePhoto }
+  return {
+    user,
+    isAuthenticated,
+    retrieveUserData,
+    clearUser,
+    updatePhotos,
+    removePhoto
+  }
 })
