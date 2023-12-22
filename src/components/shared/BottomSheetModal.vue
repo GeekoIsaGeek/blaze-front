@@ -5,6 +5,10 @@ const emit = defineEmits<{
   hideModal: []
 }>()
 
+defineProps<{
+  showModal: boolean
+}>()
+
 const isDragging = ref(false)
 const startY = ref(0)
 
@@ -32,35 +36,51 @@ const handleMouseDown = (e: MouseEvent) => (startY.value = e.clientY)
 const handleMouseMove = (e: MouseEvent) => {
   const deltaY = e.clientY - startY.value
 
-  startY.value = 0
-
-  if (deltaY === 1) {
+  if (deltaY < 1) {
     emit('hideModal')
   }
+  startY.value = 0
 }
 const handleMouseUp = () => (startY.value = 0)
 </script>
 
 <template>
-  <div class="bg-black/30 w-full h-full absolute top-0" @click="emit('hideModal')">
+  <Transition
+    enterFromClass="opacity-0"
+    enterToClass="opacity-1 bottomSheetTransition"
+    leaveFromClass="opacity-1 bottomSheetTransition"
+    leaveToClass="opacity-0 bottomSheetTransition"
+  >
     <div
-      class="bg-white h-max w-full absolute bottom-0 rounded-t-xl shadow-xl flex flex-col"
-      @click.stop
+      class="bg-black/30 w-full h-full absolute top-0"
+      @click="emit('hideModal')"
+      v-if="showModal"
     >
-      <div
-        class="w-full cursor-grab"
-        @touchmove="handleTouchMove"
-        @touchstart="handleTouchStart"
-        @touchend="handleTouchEnd"
-        @mousedown="handleMouseDown"
-        @mousemove="handleMouseMove"
-        @mouseup="handleMouseUp"
+      <Transition
+        appear
+        enter-from-class="opacity-0 translate-y-full"
+        enter-to-class="opacity-100 translate-y-0 transition-all duration-500 delay-[0.25s] ease-out"
       >
-        <div class="bg-gray-500 w-1/4 h-1 rounded-full my-2 mx-auto"></div>
-      </div>
-      <div class="px-4 pt-5">
-        <slot />
-      </div>
+        <div
+          class="bg-white h-max w-full absolute bottom-0 rounded-t-xl shadow-xl flex flex-col select-none"
+          @click.stop
+        >
+          <div
+            class="w-full"
+            @touchmove="handleTouchMove"
+            @touchstart="handleTouchStart"
+            @touchend="handleTouchEnd"
+            @mousedown="handleMouseDown"
+            @mousemove="handleMouseMove"
+            @mouseup="handleMouseUp"
+          >
+            <div class="bg-gray-500 w-1/4 h-1 rounded-full my-2 mx-auto"></div>
+          </div>
+          <div class="px-4 pt-5">
+            <slot />
+          </div>
+        </div>
+      </Transition>
     </div>
-  </div>
+  </Transition>
 </template>

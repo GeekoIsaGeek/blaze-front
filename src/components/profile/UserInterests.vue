@@ -23,6 +23,8 @@ const showModal = ref(false)
       </ul>
       <TheArrowRightIcon class="fill-gray-500 w-7 h-7 group-hover:translate-x-1 transitions" />
     </div>
-    <BottomSheetModal @hideModal="() => (showModal = false)" v-if="showModal"> </BottomSheetModal>
+
+    <BottomSheetModal @hideModal="() => (showModal = false)" :showModal="showModal">
+    </BottomSheetModal>
   </div>
 </template>
