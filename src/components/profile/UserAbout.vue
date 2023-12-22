@@ -9,7 +9,7 @@ import FieldLabel from '@/components/shared/FieldLabel.vue'
     <Field
       name="about"
       as="textarea"
-      class="resize-none h-20 formField"
+      class="resize-none h-20 formField focus:shadow"
       placeholder="Tell people about you"
     />
   </div>
