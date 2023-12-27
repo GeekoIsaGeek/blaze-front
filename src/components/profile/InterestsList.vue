@@ -3,10 +3,12 @@ import { onMounted, ref } from 'vue'
 import request from '@/config/axiosInstance'
 import { getToken } from '@/helpers/tokens'
 import type { User } from '@/types/Pinia'
+import { useUserStore } from '@/stores/UserStore'
 
 const interests = ref<User['interests']>([])
 const searchString = ref('')
 const filteredInterests = ref<typeof interests.value>([])
+const userInterests = useUserStore().user?.interests
 
 onMounted(() => {
   const getInterests = async () => {
@@ -46,7 +48,12 @@ const handleInput = (e: Event) => {
     <li
       v-for="obj in filteredInterests"
       :key="obj.id"
-      class="px-4 border border-slate-300 shadow rounded-lg flex items-center gap-1 hover:bg-primary hover:text-white transitions hover:border-transparent cursor-pointer"
+      :class="[
+        'px-4 border shadow rounded-lg flex items-center gap-1 hover:bg-primary hover:text-white transitions hover:border-transparent cursor-pointer',
+        userInterests?.find((interest) => interest.id === obj.id)
+          ? 'border-fadedPrimary'
+          : 'border-slate-300'
+      ]"
     >
       {{ obj.interest }}
     </li>

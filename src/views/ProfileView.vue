@@ -18,12 +18,16 @@ const handleUpdate = handleSubmit(async (values) => {
 
 <template>
   <TopPanel />
-  <div class="w-full h-full text-gray-700 bg-slate-200 rounded-b-2xl flex flex-col gap-4">
-    <UserGallery />
-    <form @submit="handleUpdate" class="flex flex-col gap-4">
-      <UserAbout />
-      <UserInterests />
-    </form>
+  <div
+    class="w-full h-full max-h-[calc(100vh-9.5rem)] desktop:max-h-full overflow-y-auto text-gray-700 bg-slate-200 rounded-b-2xl flex flex-col gap-4"
+  >
+    <div>
+      <UserGallery />
+      <form @submit="handleUpdate" class="flex flex-col gap-4">
+        <UserAbout />
+        <UserInterests />
+      </form>
+    </div>
   </div>
   <NavigationPanel />
 </template>
