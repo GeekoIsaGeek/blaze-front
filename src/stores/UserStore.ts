@@ -1,4 +1,4 @@
-import type { User } from '@/types/Pinia'
+import type { Interest, User } from '@/types/Pinia'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import request from '@/config/axiosInstance'
@@ -31,12 +31,18 @@ export const useUserStore = defineStore('user', () => {
 
   const clearUser = (): void => (user.value = undefined)
 
+  const updateInterests = (interest: Interest): void => {
+    user.value!.interests = [...user.value!.interests, interest]
+    console.log(user.value?.interests)
+  }
+
   return {
     user,
     isAuthenticated,
     retrieveUserData,
     clearUser,
     updatePhotos,
-    removePhoto
+    removePhoto,
+    updateInterests
   }
 })

@@ -6,10 +6,9 @@ import BottomSheetModal from '@/components/shared/BottomSheetModal.vue'
 import DeleteIcon from '@/components/icons/TheDeleteIcon.vue'
 import { ref } from 'vue'
 import InterestsList from '@/components/profile/InterestsList.vue'
+import type { Interest } from '@/types/Pinia'
 
-const interests = useUserStore().user?.interests || []
-const currentInterests = ref(interests)
-
+const currentInterests = ref(useUserStore().user?.interests || [])
 const showModal = ref(false)
 
 const removeInterest = (id: number) => {
@@ -17,10 +16,8 @@ const removeInterest = (id: number) => {
     (interest: { id: number; interest: string }) => interest.id !== id
   )
 }
-
-const handleClose = () => {
-  showModal.value = false
-  currentInterests.value = interests
+const updateCurrentInterests = (interest: Interest) => {
+  currentInterests.value = [...currentInterests.value, interest]
 }
 </script>
 
@@ -32,14 +29,16 @@ const handleClose = () => {
       @click="showModal = true"
     >
       <ul class="flex items-center gap-2 flex-wrap">
-        <li v-for="(obj, i) in interests" :key="obj.id" class="select-none">
-          {{ obj.interest }}{{ `${i !== interests!.length - 1 ? ',' : ''}` }}
+        <li v-for="(obj, i) in currentInterests" :key="obj.id" class="select-none">
+          {{ obj.interest }}{{ `${i !== currentInterests!.length - 1 ? ',' : ''}` }}
         </li>
       </ul>
-      <TheArrowRightIcon class="fill-gray-500 w-7 h-7 group-hover:translate-x-1 transitions" />
+      <TheArrowRightIcon
+        class="fill-gray-500 w-7 h-7 min-w-7 group-hover:translate-x-1 transitions"
+      />
     </div>
 
-    <BottomSheetModal @hideModal="() => handleClose()" :showModal="showModal">
+    <BottomSheetModal @hideModal="showModal = false" :showModal="showModal">
       <ul class="flex items-center gap-2 flex-wrap">
         <li
           v-for="obj in currentInterests"
@@ -54,7 +53,7 @@ const handleClose = () => {
         </li>
       </ul>
 
-      <InterestsList />
+      <InterestsList :updateCurrentInterests="updateCurrentInterests" />
     </BottomSheetModal>
   </div>
 </template>

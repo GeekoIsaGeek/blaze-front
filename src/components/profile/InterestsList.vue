@@ -1,14 +1,19 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import request from '@/config/axiosInstance'
 import { getToken } from '@/helpers/tokens'
-import type { User } from '@/types/Pinia'
+import type { Interest, User } from '@/types/Pinia'
 import { useUserStore } from '@/stores/UserStore'
+
+const props = defineProps<{
+  updateCurrentInterests: (interest: Interest) => void
+}>()
 
 const interests = ref<User['interests']>([])
 const searchString = ref('')
 const filteredInterests = ref<typeof interests.value>([])
-const userInterests = useUserStore().user?.interests
+const userInterests = computed(() => useUserStore().user?.interests)
+const { updateInterests } = useUserStore()
 
 onMounted(() => {
   const getInterests = async () => {
@@ -33,6 +38,13 @@ const handleInput = (e: Event) => {
     obj.interest.toLowerCase().startsWith(input.value.toLowerCase())
   )
 }
+
+const addInterest = (selectedInterest: Interest) => {
+  if (userInterests?.value?.find((interest) => interest.id === selectedInterest.id)) return
+
+  updateInterests(selectedInterest)
+  props.updateCurrentInterests(selectedInterest)
+}
 </script>
 
 <template>
@@ -54,6 +66,7 @@ const handleInput = (e: Event) => {
           ? 'border-fadedPrimary'
           : 'border-slate-300'
       ]"
+      @click="() => addInterest(obj)"
     >
       {{ obj.interest }}
     </li>

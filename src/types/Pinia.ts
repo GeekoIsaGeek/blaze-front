@@ -1,3 +1,7 @@
+export type Interest = {
+  id: number
+  interest: string
+}
 export interface User {
   id: number
   birthdate: string
@@ -7,8 +11,5 @@ export interface User {
     id: number
     url: string
   }[]
-  interests: {
-    id: number
-    interest: string
-  }[]
+  interests: Interest[]
 }
