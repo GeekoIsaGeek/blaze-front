@@ -13,7 +13,7 @@ const interests = ref<User['interests']>([])
 const searchString = ref('')
 const filteredInterests = ref<typeof interests.value>([])
 const userInterests = computed(() => useUserStore().user?.interests)
-const { updateInterests } = useUserStore()
+const { addInterest } = useUserStore()
 
 onMounted(() => {
   const getInterests = async () => {
@@ -39,10 +39,14 @@ const handleInput = (e: Event) => {
   )
 }
 
-const addInterest = (selectedInterest: Interest) => {
-  if (userInterests?.value?.find((interest) => interest.id === selectedInterest.id)) return
+const handleSelect = async (selectedInterest: Interest) => {
+  if (
+    userInterests?.value?.find((interest) => interest.id === selectedInterest.id) ||
+    userInterests?.value!.length >= 5
+  )
+    return
 
-  updateInterests(selectedInterest)
+  await addInterest(selectedInterest)
   props.updateCurrentInterests(selectedInterest)
 }
 </script>
@@ -66,7 +70,7 @@ const addInterest = (selectedInterest: Interest) => {
           ? 'border-fadedPrimary'
           : 'border-slate-300'
       ]"
-      @click="() => addInterest(obj)"
+      @click="() => handleSelect(obj)"
     >
       {{ obj.interest }}
     </li>

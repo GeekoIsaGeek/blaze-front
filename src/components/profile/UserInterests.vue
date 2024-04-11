@@ -10,8 +10,10 @@ import type { Interest } from '@/types/Pinia'
 
 const currentInterests = ref(useUserStore().user?.interests || [])
 const showModal = ref(false)
+const { removeInterest } = useUserStore()
 
-const removeInterest = (id: number) => {
+const deleteInterest = async (id: number) => {
+  await removeInterest(id)
   currentInterests.value = currentInterests.value.filter(
     (interest: { id: number; interest: string }) => interest.id !== id
   )
@@ -39,6 +41,7 @@ const updateCurrentInterests = (interest: Interest) => {
     </div>
 
     <BottomSheetModal @hideModal="showModal = false" :showModal="showModal">
+      <p class="font-bold text-right uppercase mb-3">{{ currentInterests?.length || 0 }}/5</p>
       <ul class="flex items-center gap-2 flex-wrap">
         <li
           v-for="obj in currentInterests"
@@ -48,7 +51,7 @@ const updateCurrentInterests = (interest: Interest) => {
           {{ obj.interest }}
           <DeleteIcon
             class="w-4 h-4 text-white fill-white cursor-pointer"
-            @click="() => removeInterest(obj.id)"
+            @click="() => deleteInterest(obj.id)"
           />
         </li>
       </ul>

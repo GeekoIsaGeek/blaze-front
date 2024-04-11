@@ -17,8 +17,7 @@ export const useUserStore = defineStore('user', () => {
       })
       user.value = response.data
     } catch (error) {
-      console.log(error)
-      return
+      console.error(error)
     }
   }
 
@@ -31,9 +30,35 @@ export const useUserStore = defineStore('user', () => {
 
   const clearUser = (): void => (user.value = undefined)
 
-  const updateInterests = (interest: Interest): void => {
-    user.value!.interests = [...user.value!.interests, interest]
-    console.log(user.value?.interests)
+  const removeInterest = async (id: number) => {
+    const response = await request.delete(`/api/user/interests/${id}/delete`, {
+      headers: {
+        Authorization: `Bearer ${getToken('auth')}`
+      }
+    })
+    if (response.status === 204) {
+      user.value!.interests = user.value!.interests.filter((i) => i.id !== id)
+    }
+  }
+
+  const addInterest = async (interest: Interest) => {
+    try {
+      const response = await request.post(
+        `/api/user/interests/${interest.id}/add`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${getToken('auth')}`
+          }
+        }
+      )
+
+      if (response.status === 201) {
+        user.value!.interests = [...user.value!.interests, interest]
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return {
@@ -43,6 +68,7 @@ export const useUserStore = defineStore('user', () => {
     clearUser,
     updatePhotos,
     removePhoto,
-    updateInterests
+    addInterest,
+    removeInterest
   }
 })
