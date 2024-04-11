@@ -53,6 +53,10 @@ router.beforeEach(async (to, from) => {
       return { name: 'login' }
     }
   }
+
+  if (to.path === '/login' || to.path === '/register') {
+    if (userStore.isAuthenticated) return { name: 'feed' }
+  }
 })
 
 export default router

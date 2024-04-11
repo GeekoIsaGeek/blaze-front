@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import request from '@/config/axiosInstance'
-import { getToken } from '@/helpers/tokens'
 import type { Interest, User } from '@/types/Pinia'
 import { useUserStore } from '@/stores/UserStore'
+import { fetchInterests } from '@/services/Interests'
 
 const props = defineProps<{
   updateCurrentInterests: (interest: Interest) => void
@@ -15,19 +14,10 @@ const filteredInterests = ref<typeof interests.value>([])
 const userInterests = computed(() => useUserStore().user?.interests)
 const { addInterest } = useUserStore()
 
-onMounted(() => {
-  const getInterests = async () => {
-    const response = await request.get('/api/interests', {
-      headers: {
-        Authorization: `Bearer ${getToken('auth')}`
-      }
-    })
-    if (response.status === 200) {
-      interests.value = response.data
-      filteredInterests.value = response.data
-    }
-  }
-  getInterests()
+onMounted(async () => {
+  const fetchedInterests = await fetchInterests()
+  interests.value = fetchedInterests || []
+  filteredInterests.value = fetchedInterests || []
 })
 
 const handleInput = (e: Event) => {
