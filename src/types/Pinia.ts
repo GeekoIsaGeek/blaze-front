@@ -12,6 +12,7 @@ export interface User {
     url: string
   }[]
   location: string
+  gender: 'male' | 'female' | 'other'
   bio: string
   interests: Interest[]
 }

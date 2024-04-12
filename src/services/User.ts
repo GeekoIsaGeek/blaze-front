@@ -15,4 +15,21 @@ const retrieveUser = async () => {
   }
 }
 
-export { retrieveUser }
+const updateUserGender = async (gender: User['gender']) => {
+  try {
+    const response = await request.put(
+      '/api/user/gender',
+      { gender },
+      {
+        headers: {
+          Authorization: `Bearer ${getToken('auth')}`
+        }
+      }
+    )
+    return response.status
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export { retrieveUser, updateUserGender }

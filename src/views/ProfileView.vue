@@ -6,6 +6,7 @@ import { useForm } from 'vee-validate'
 import UserAbout from '@/components/profile/UserAbout.vue'
 import UserInterests from '@/components/profile/UserInterests.vue'
 import UserLocation from '@/components/profile/UserLocation.vue'
+import UserGender from '@/components/profile/UserGender.vue'
 
 const { handleSubmit } = useForm()
 
@@ -25,6 +26,7 @@ const handleUpdate = handleSubmit(async (values) => {
         <UserAbout />
         <UserInterests />
         <UserLocation />
+        <UserGender />
       </form>
     </div>
   </div>

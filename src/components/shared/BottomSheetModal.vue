@@ -7,6 +7,7 @@ const emit = defineEmits<{
 
 defineProps<{
   showModal: boolean
+  className?: string
 }>()
 
 const isDragging = ref(false)
@@ -62,7 +63,10 @@ const handleMouseUp = () => (startY.value = 0)
         enter-to-class="opacity-100 translate-y-0 transition-all duration-500 delay-[0.25s] ease-out"
       >
         <div
-          class="bg-white h-4/5 w-full absolute bottom-0 rounded-t-xl shadow-xl flex flex-col select-none"
+          :class="[
+            'bg-white h-4/5 w-full absolute bottom-0 rounded-t-xl shadow-xl flex flex-col select-none',
+            className
+          ]"
           @click.stop
         >
           <div

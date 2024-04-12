@@ -1,7 +1,7 @@
 import type { Interest, User } from '@/types/Pinia'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { retrieveUser } from '@/services/User'
+import { retrieveUser, updateUserGender } from '@/services/User'
 import { deleteInterest, saveSelectedInterest } from '@/services/Interests'
 
 export const useUserStore = defineStore('user', () => {
@@ -36,6 +36,11 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  const updateGender = async (gender: User['gender']) => {
+    const status = await updateUserGender(gender)
+    if (status === 204) user.value!.gender = gender
+  }
+
   return {
     user,
     isAuthenticated,
@@ -44,6 +49,7 @@ export const useUserStore = defineStore('user', () => {
     updatePhotos,
     removePhoto,
     addInterest,
-    removeInterest
+    removeInterest,
+    updateGender
   }
 })
