@@ -1,8 +1,9 @@
 import type { Interest, User } from '@/types/Pinia'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { retrieveUser, updateUserGender } from '@/services/User'
+import { addNewLanguage, deleteLanguage, retrieveUser, updateUserGender } from '@/services/User'
 import { deleteInterest, saveSelectedInterest } from '@/services/Interests'
+import type { Language } from '@/types/Languages'
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<User>()
@@ -41,6 +42,22 @@ export const useUserStore = defineStore('user', () => {
     if (status === 204) user.value!.gender = gender
   }
 
+  const addLanguage = async (language: Language) => {
+    const status = await addNewLanguage(language)
+    if (status === 204) {
+      user.value!.languages = [...(user.value!.languages || []), language].sort((a, b) =>
+        a.localeCompare(b)
+      )
+    }
+  }
+
+  const deleteUserLanguage = async (language: Language) => {
+    const status = await deleteLanguage(language)
+    if (status === 204) {
+      user.value!.languages = user.value!.languages.filter((lang) => lang !== language)
+    }
+  }
+
   return {
     user,
     isAuthenticated,
@@ -50,6 +67,8 @@ export const useUserStore = defineStore('user', () => {
     removePhoto,
     addInterest,
     removeInterest,
-    updateGender
+    updateGender,
+    addLanguage,
+    deleteUserLanguage
   }
 })

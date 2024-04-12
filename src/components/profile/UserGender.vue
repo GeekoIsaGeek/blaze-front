@@ -4,7 +4,8 @@ import { computed, ref } from 'vue'
 import BottomSheetModal from '@/components/shared/BottomSheetModal.vue'
 import { useUserStore } from '@/stores/UserStore'
 import { capitalize } from 'vue'
-import { GENDERS } from '@/config/constants.ts'
+import { GENDERS } from '@/config/constants'
+import TheArrowRightIcon from '@/components/icons/TheArrowRightIcon.vue'
 
 const showModal = ref(false)
 const userGender = computed(() => useUserStore()?.user?.gender)
@@ -18,7 +19,10 @@ const { updateGender } = useUserStore()
       class="bg-white p-4 pr-2 rounded shadow-sm flex justify-between items-center group cursor-pointer hover:shadow"
       @click="showModal = true"
     >
-      {{ capitalize(userGender || 'Prefer not to specify') }}
+      <p>{{ capitalize(userGender || 'Prefer not to specify') }}</p>
+      <TheArrowRightIcon
+        class="fill-gray-500 w-7 h-7 min-w-7 group-hover:translate-x-1 transitions"
+      />
     </div>
 
     <BottomSheetModal

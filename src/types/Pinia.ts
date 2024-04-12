@@ -1,3 +1,5 @@
+import type { Language } from './Languages'
+
 export type Interest = {
   id: number
   interest: string
@@ -15,4 +17,5 @@ export interface User {
   gender: 'male' | 'female' | 'other'
   bio: string
   interests: Interest[]
+  languages: Language[]
 }

@@ -7,6 +7,7 @@ import UserAbout from '@/components/profile/UserAbout.vue'
 import UserInterests from '@/components/profile/UserInterests.vue'
 import UserLocation from '@/components/profile/UserLocation.vue'
 import UserGender from '@/components/profile/UserGender.vue'
+import UserLanguages from '@/components/profile/UserLanguages.vue'
 
 const { handleSubmit } = useForm()
 
@@ -25,8 +26,9 @@ const handleUpdate = handleSubmit(async (values) => {
       <form @submit="handleUpdate" class="flex flex-col gap-4">
         <UserAbout />
         <UserInterests />
-        <UserLocation />
+        <UserLanguages />
         <UserGender />
+        <UserLocation />
       </form>
     </div>
   </div>
