@@ -11,5 +11,7 @@ export interface User {
     id: number
     url: string
   }[]
+  location: string
+  bio: string
   interests: Interest[]
 }
