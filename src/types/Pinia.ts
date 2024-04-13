@@ -4,6 +4,11 @@ export type Interest = {
   id: number
   interest: string
 }
+export type Preference = {
+  show: 'men' | 'women' | 'everyone' | undefined
+  age_from: number | undefined
+  age_to: number | undefined
+}
 export interface User {
   id: number
   birthdate: string
@@ -18,4 +23,5 @@ export interface User {
   bio: string
   interests: Interest[]
   languages: Language[]
+  preference: Preference
 }

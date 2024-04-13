@@ -1,6 +1,6 @@
 import request from '@/config/axiosInstance'
 import { getToken } from '@/helpers/tokens'
-import type { ProfileForm } from '@/types/Forms'
+import type { ProfileForm, UpdatedPreferences } from '@/types/Forms'
 import type { Language } from '@/types/Languages'
 import type { User } from '@/types/Pinia'
 
@@ -77,4 +77,24 @@ const updateUser = async (payload: ProfileForm) => {
   }
 }
 
-export { retrieveUser, updateUserGender, addNewLanguage, deleteLanguage, updateUser }
+const updatePreferences = async (preferences: UpdatedPreferences) => {
+  try {
+    const response = await request.put('/api/user/preferences', preferences, {
+      headers: {
+        Authorization: `Bearer ${getToken('auth')}`
+      }
+    })
+    return response.status
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export {
+  retrieveUser,
+  updateUserGender,
+  addNewLanguage,
+  deleteLanguage,
+  updateUser,
+  updatePreferences
+}

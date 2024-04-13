@@ -30,11 +30,12 @@ const updateCurrentInterests = (interest: Interest) => {
       class="bg-white p-4 pr-2 rounded shadow-sm flex justify-between items-center group cursor-pointer hover:shadow"
       @click="showModal = true"
     >
-      <ul class="flex items-center gap-2 flex-wrap">
+      <ul class="flex items-center gap-2 flex-wrap" v-if="currentInterests.length">
         <li v-for="(obj, i) in currentInterests" :key="obj.id" class="select-none">
           {{ obj.interest }}{{ `${i !== currentInterests!.length - 1 ? ',' : ''}` }}
         </li>
       </ul>
+      <p v-else class="text-gray-500">Select your interests</p>
       <TheArrowRightIcon
         class="fill-gray-500 w-7 h-7 min-w-7 group-hover:translate-x-1 transitions"
       />

@@ -27,7 +27,7 @@ const handleDeletion = async () => {
 </script>
 
 <template>
-  <div class="h-32 w-full bg-slate-100 rounded-xl hover:grayscale-[30%] transitions relative">
+  <div class="h-32 w-full bg-stone-100 rounded-xl hover:grayscale-[30%] transitions relative">
     <img :src="photo" class="w-full h-full object-cover rounded-xl" v-if="photo" />
     <ImageUploader :photo="photo" @setPhoto="(selected) => (photo = selected)" v-else />
 

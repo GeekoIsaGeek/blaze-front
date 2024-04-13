@@ -43,7 +43,7 @@ const handleChange = (e: Event) => {
 
 <template>
   <div
-    class="w-full h-full overflow-hidden relative flex items-center rounded-lg justify-center border-[3px] border-dashed border-gray-400 hover:bg-slate-200 transitions"
+    class="w-full h-full overflow-hidden relative flex items-center rounded-lg justify-center border-[3px] border-dashed border-gray-400 hover:bg-gray-200 transitions"
   >
     <TheAddImageIcon class="fill-gray-400 w-7 h-7" />
     <input
