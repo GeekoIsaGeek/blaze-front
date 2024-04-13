@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import TheSettingsIcon from '@/components/icons/TheSettingsIcon.vue'
+
+defineEmits<{
+  updateProfile: []
+}>()
 </script>
 
 <template>
@@ -8,6 +12,7 @@ import TheSettingsIcon from '@/components/icons/TheSettingsIcon.vue'
     <div class="flex items-center gap-5">
       <button
         class="text-fadedPrimary border border-fadedPrimary text-md font-medium hover:bg-fadedPrimary hover:text-white rounded-md px-2 tranitions"
+        @click="$emit('updateProfile')"
       >
         Done
       </button>

@@ -10,7 +10,7 @@ import DeleteIcon from '@/components/icons/TheDeleteIcon.vue'
 
 const showModal = ref(false)
 const userLanguages = computed(
-  () => useUserStore().user?.languages?.sort((a, b) => a.localeCompare(b))
+  () => useUserStore().user?.languages?.sort((a, b) => a.localeCompare(b)) || []
 )
 const { deleteUserLanguage } = useUserStore()
 </script>
@@ -22,11 +22,12 @@ const { deleteUserLanguage } = useUserStore()
       class="bg-white p-4 pr-2 rounded shadow-sm flex justify-between items-center group cursor-pointer hover:shadow"
       @click="showModal = true"
     >
-      <ul class="flex items-center gap-2 flex-wrap">
+      <ul class="flex items-center gap-2 flex-wrap" v-if="userLanguages?.length">
         <li v-for="langCode in userLanguages" :key="langCode" class="select-none">
           • {{ LANGUAGES[langCode] }}
         </li>
       </ul>
+      <p v-else>Prefer not to specify</p>
       <TheArrowRightIcon
         class="fill-gray-500 w-7 h-7 min-w-7 group-hover:translate-x-1 transitions"
       />

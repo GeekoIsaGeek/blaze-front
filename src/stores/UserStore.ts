@@ -1,9 +1,16 @@
 import type { Interest, User } from '@/types/Pinia'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { addNewLanguage, deleteLanguage, retrieveUser, updateUserGender } from '@/services/User'
+import {
+  addNewLanguage,
+  deleteLanguage,
+  retrieveUser,
+  updateUser,
+  updateUserGender
+} from '@/services/User'
 import { deleteInterest, saveSelectedInterest } from '@/services/Interests'
 import type { Language } from '@/types/Languages'
+import type { ProfileForm } from '@/types/Forms'
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<User>()
@@ -58,6 +65,13 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  const updateProfile = async (payload: ProfileForm) => {
+    const status = await updateUser(payload)
+    if (status === 204) {
+      user.value = { ...user.value, ...payload }
+    }
+  }
+
   return {
     user,
     isAuthenticated,
@@ -69,6 +83,7 @@ export const useUserStore = defineStore('user', () => {
     removeInterest,
     updateGender,
     addLanguage,
-    deleteUserLanguage
+    deleteUserLanguage,
+    updateProfile
   }
 })
