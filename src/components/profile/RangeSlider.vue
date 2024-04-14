@@ -29,9 +29,9 @@ const getPosXes = () => {
   return { minPosX, maxPosX }
 }
 
-onMounted(() => {
+watchEffect(() => {
   const { minPosX, maxPosX } = getPosXes()
-  const elementWidth = maxAgeController.value.getBoundingClientRect().width
+  const elementWidth = maxAgeController.value?.getBoundingClientRect().width
 
   if (minPosX) {
     minAgeController.value.style.left = Math.max(minPosX, elementWidth) + 'px'
@@ -68,7 +68,7 @@ const handleSliding = (event: MouseEvent | TouchEvent, initiator: 'from' | 'to')
     const pos = getPosXConsideringLimits({
       posX,
       leftLimit: 0,
-      rightLimit: maxAgeController.value.offsetLeft - elementWidth
+      rightLimit: maxAgeController.value.offsetLeft - elementWidth / 4
     })
 
     minAgeController.value.style.left = `${pos}px`
@@ -76,7 +76,7 @@ const handleSliding = (event: MouseEvent | TouchEvent, initiator: 'from' | 'to')
   } else {
     const pos = getPosXConsideringLimits({
       posX,
-      leftLimit: minAgeController.value.offsetLeft + elementWidth,
+      leftLimit: minAgeController.value.offsetLeft + elementWidth / 4,
       rightLimit: wrapperRect.width - elementWidth
     })
 
