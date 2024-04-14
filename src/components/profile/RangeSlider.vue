@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watchEffect } from 'vue'
 import { getPosXConsideringLimits, getActualAge, getPositionFromAge } from '@/helpers/calculations'
 import { useUserStore } from '@/stores/UserStore'
 import useIsMobile from '@/composables/useIsMobile'
@@ -12,6 +12,7 @@ const emit = defineEmits<{
 const minAgeController = ref()
 const maxAgeController = ref()
 const wrapper = ref()
+const range = ref()
 
 const isSliding = ref(false)
 const { isMobile } = useIsMobile()
@@ -19,12 +20,17 @@ const { isMobile } = useIsMobile()
 const minAge = ref(useUserStore().user?.preference.age_from || MIN_AGE)
 const maxAge = ref(useUserStore().user?.preference.age_to || MAX_AGE)
 
-onMounted(() => {
-  const minPosX = getPositionFromAge(minAge.value, wrapper.value.getBoundingClientRect().width)
+const getPosXes = () => {
+  const minPosX = getPositionFromAge(minAge.value, wrapper.value?.getBoundingClientRect().width)
   const maxPosX = getPositionFromAge(
     maxAge.value - (isMobile.value ? 6 : 4),
-    wrapper.value.getBoundingClientRect().width
+    wrapper.value?.getBoundingClientRect().width
   )
+  return { minPosX, maxPosX }
+}
+
+onMounted(() => {
+  const { minPosX, maxPosX } = getPosXes()
   const elementWidth = maxAgeController.value.getBoundingClientRect().width
 
   if (minPosX) {
@@ -32,6 +38,16 @@ onMounted(() => {
   }
   if (maxPosX) {
     maxAgeController.value.style.left = Math.max(minPosX + elementWidth, maxPosX) + 'px'
+  }
+})
+
+watchEffect(() => {
+  const { minPosX, maxPosX } = getPosXes()
+
+  if (maxPosX && minPosX && range.value) {
+    const trackWidth = maxPosX - minPosX || wrapper.value?.getBoundingClientRect().width
+    range.value.style.width = `${trackWidth}px`
+    range.value.style.left = `${minPosX + 4}px`
   }
 })
 
@@ -83,7 +99,7 @@ const handleSliding = (event: MouseEvent | TouchEvent, initiator: 'from' | 'to')
       <button
         aria-label="age_from"
         type="button"
-        class="w-7 h-7 bg-white border border-slate-300 outline-none rounded-full hover:border-pinkishRed shadow-md absolute bottom-0"
+        class="z-10 w-7 h-7 bg-white border border-slate-300 outline-none rounded-full hover:border-pinkishRed shadow-md absolute bottom-0"
         ref="minAgeController"
         @mousedown="isSliding = true"
         @mouseup="isSliding = false"
@@ -95,7 +111,7 @@ const handleSliding = (event: MouseEvent | TouchEvent, initiator: 'from' | 'to')
       <button
         aria-label="age_to"
         type="button"
-        class="w-7 h-7 bg-white border border-slate-300 outline-none rounded-full hover:border-pinkishRed shadow-md absolute bottom-0 right-0"
+        class="z-10 w-7 h-7 bg-white border border-slate-300 outline-none rounded-full hover:border-pinkishRed shadow-md absolute bottom-0 right-0"
         ref="maxAgeController"
         @mousedown="isSliding = true"
         @mouseup="isSliding = false"
@@ -104,6 +120,7 @@ const handleSliding = (event: MouseEvent | TouchEvent, initiator: 'from' | 'to')
         @touchmove="(e) => handleSliding(e, 'to')"
         @mousemove="(e) => handleSliding(e, 'to')"
       ></button>
+      <div class="h-1 bg-pinkishRed absolute" ref="range"></div>
     </div>
   </div>
 </template>
