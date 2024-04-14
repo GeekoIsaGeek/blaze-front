@@ -4,6 +4,7 @@ import { ref } from 'vue'
 import SettingsDropDown from '@/components/profile/SettingsDropDown.vue'
 import { SHOW_OPTIONS } from '@/config/constants'
 import type { Preference } from '@/types/Pinia'
+import RangeSlider from '@/components/profile/RangeSlider.vue'
 
 const showDropdown = ref(false)
 
@@ -19,6 +20,13 @@ const handleSelect = (selected: string) =>
   emit('update:preferences', {
     ...props.preferences,
     show: selected as (typeof SHOW_OPTIONS)[number]
+  })
+
+const handleAgeRangeChange = (from: number, to: number) =>
+  emit('update:preferences', {
+    ...props.preferences,
+    age_from: from,
+    age_to: to
   })
 </script>
 <template>
@@ -47,6 +55,7 @@ const handleSelect = (selected: string) =>
           @handleSelect="handleSelect"
         />
       </div>
+      <RangeSlider @handleAgeRangeChange="handleAgeRangeChange" />
     </div>
   </Transition>
 </template>
