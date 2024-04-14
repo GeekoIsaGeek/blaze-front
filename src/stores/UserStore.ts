@@ -1,4 +1,4 @@
-import type { Interest, Preference, User } from '@/types/Pinia'
+import type { Interest, User } from '@/types/Pinia'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import {
@@ -12,6 +12,7 @@ import {
 import { deleteInterest, saveSelectedInterest } from '@/services/Interests'
 import type { Language } from '@/types/Languages'
 import type { ProfileForm, UpdatedPreferences } from '@/types/Forms'
+import { removeToken } from '@/helpers/tokens'
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<User>()
@@ -29,7 +30,10 @@ export const useUserStore = defineStore('user', () => {
     user.value!.photos = user.value!.photos.filter((photo) => photo.id !== id)
   }
 
-  const clearUser = (): void => (user.value = undefined)
+  const clearUser = (): void => {
+    user.value = undefined
+    removeToken('auth')
+  }
 
   const removeInterest = async (id: number) => {
     const status = await deleteInterest(id)

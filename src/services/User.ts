@@ -90,11 +90,43 @@ const updatePreferences = async (preferences: UpdatedPreferences) => {
   }
 }
 
+const logoutUser = async () => {
+  try {
+    const { status } = await request.post(
+      '/api/logout',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${getToken('auth')}`
+        }
+      }
+    )
+    return status
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const deleteUser = async () => {
+  try {
+    const { status } = await request.delete('/api/user', {
+      headers: {
+        Authorization: `Bearer ${getToken('auth')}`
+      }
+    })
+    return status
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export {
   retrieveUser,
   updateUserGender,
   addNewLanguage,
   deleteLanguage,
   updateUser,
-  updatePreferences
+  updatePreferences,
+  logoutUser,
+  deleteUser
 }

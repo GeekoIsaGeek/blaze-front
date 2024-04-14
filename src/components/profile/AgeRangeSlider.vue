@@ -17,8 +17,8 @@ const range = ref()
 const isSliding = ref(false)
 const { isMobile } = useIsMobile()
 
-const minAge = ref(useUserStore().user?.preference.age_from || MIN_AGE)
-const maxAge = ref(useUserStore().user?.preference.age_to || MAX_AGE)
+const minAge = ref(useUserStore().user?.preference?.age_from || MIN_AGE)
+const maxAge = ref(useUserStore().user?.preference?.age_to || MAX_AGE)
 
 const getPosXes = () => {
   const minPosX = getPositionFromAge(minAge.value, wrapper.value?.getBoundingClientRect().width)
@@ -29,16 +29,23 @@ const getPosXes = () => {
   return { minPosX, maxPosX }
 }
 
-watchEffect(() => {
-  const { minPosX, maxPosX } = getPosXes()
-  const elementWidth = maxAgeController.value?.getBoundingClientRect().width
+onMounted(() => {
+  const setControllPositions = () => {
+    const { minPosX, maxPosX } = getPosXes()
+    const elementWidth = maxAgeController.value?.getBoundingClientRect().width
 
-  if (minPosX) {
-    minAgeController.value.style.left = Math.max(minPosX, elementWidth) + 'px'
+    if (minPosX) {
+      minAgeController.value.style.left = Math.max(minPosX, elementWidth) + 'px'
+    }
+    if (maxPosX) {
+      maxAgeController.value.style.left = Math.max(minPosX + elementWidth, maxPosX) + 'px'
+    }
   }
-  if (maxPosX) {
-    maxAgeController.value.style.left = Math.max(minPosX + elementWidth, maxPosX) + 'px'
-  }
+  setControllPositions()
+
+  window.addEventListener('resize', () => {
+    setControllPositions()
+  })
 })
 
 watchEffect(() => {
