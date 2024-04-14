@@ -55,7 +55,7 @@ const handleAgeRangeChange = (from: number, to: number) =>
           @handleSelect="handleSelect"
         />
       </div>
-      <RangeSlider @handleAgeRangeChange="handleAgeRangeChange" />
+      <AgeRangeSlider @handleAgeRangeChange="handleAgeRangeChange" />
     </div>
   </Transition>
 </template>
