@@ -44,8 +44,8 @@ onMounted(() => {
 watchEffect(() => {
   const { minPosX, maxPosX } = getPosXes()
 
-  if (maxPosX && minPosX && range.value) {
-    const trackWidth = maxPosX - minPosX || wrapper.value?.getBoundingClientRect().width
+  if (maxPosX !== undefined && minPosX !== undefined && range.value) {
+    const trackWidth = maxPosX - minPosX
     range.value.style.width = `${trackWidth}px`
     range.value.style.left = `${minPosX + 4}px`
   }
