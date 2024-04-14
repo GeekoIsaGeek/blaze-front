@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import SettingsDropDown from '@/components/profile/SettingsDropDown.vue'
 import { SHOW_OPTIONS } from '@/config/constants'
 import type { Preference } from '@/types/Pinia'
-import RangeSlider from '@/components/profile/RangeSlider.vue'
+import AgeRangeSlider from '@/components/profile/AgeRangeSlider.vue'
 
 const showDropdown = ref(false)
 
