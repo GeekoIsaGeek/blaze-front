@@ -8,7 +8,8 @@ export default {
         hotpink: '#ff147f',
         pinkishRed: '#fd1d5a',
         orange: '#fc7f45',
-        active: '#ff0059'
+        active: '#ff0059',
+        textPrimary: '#505965'
       },
       screens: {
         desktop: '640px'

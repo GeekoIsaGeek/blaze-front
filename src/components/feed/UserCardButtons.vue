@@ -4,14 +4,14 @@ import TheXIcon from '@/components/icons/TheXIcon.vue'
 </script>
 
 <template>
-  <div class="flex w-full justify-center gap-5 flex-row-reverse mt-5">
+  <div class="flex justify-center gap-5 flex-row-reverse mt-5 items-center">
     <button
-      class="h-[44px] w-[44px] rounded-full bg-white hover:bg-green-700 transition-colors duration-300 ease-out flex items-center justify-center"
+      class="shadow-lg h-[44px] w-[44px] rounded-full bg-white hover:bg-green-700 transition-colors duration-300 ease-out flex items-center justify-center"
     >
       <TheHeartIcon color="lightgreen" />
     </button>
     <button
-      class="h-[44px] w-[44px] rounded-full bg-white hover:bg-active flex transition-colors duration-300 ease-out items-center justify-center group"
+      class="shadow-lg h-[44px] w-[44px] rounded-full bg-white hover:bg-active flex transition-colors duration-300 ease-out items-center justify-center group"
     >
       <TheXIcon class="fill-active group-hover:fill-white transition-fill duration-[.4s] ease" />
     </button>
