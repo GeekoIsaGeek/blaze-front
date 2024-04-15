@@ -14,7 +14,7 @@ const bio = computed(() => useUserStore().user?.bio)
       name="about"
       :value="bio"
       as="textarea"
-      class="resize-none h-20 !py-3 formField focus:shadow"
+      class="resize-none h-20 formField focus:shadow"
       placeholder="Tell people about you"
     />
   </div>

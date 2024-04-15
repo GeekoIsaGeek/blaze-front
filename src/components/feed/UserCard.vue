@@ -15,10 +15,11 @@ const showDetails = ref(false)
 
 <template>
   <div
-    class="w-full h-[86%] desktop:h-[82%] desktop:max-h-[82%] overflow-scroll rounded-t-xl desktop:rounded-t-3xl relative snap-y scroll-smooth"
+    class="w-full h-[86%] desktop:h-[82%] desktop:max-h-[82%] overflow-auto rounded-t-xl snap-y desktop:rounded-t-3xl relative scroll-smooth"
+    :class="[showDetails && '']"
   >
     <div
-      class="bg-gradient-to-t from-black/80 desktop:from-black/60 from-20% to-60% to-transparent w-full h-full absolute top-0 left-0 snap-center"
+      class="bg-gradient-to-t from-black/80 desktop:from-black/60 from-20% to-60% to-transparent w-full h-full absolute top-0 left-0"
     ></div>
 
     <img :src="currentPhoto" class="h-full w-full rounded-t-xl object-cover" />

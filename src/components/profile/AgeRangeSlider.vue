@@ -54,7 +54,7 @@ watchEffect(() => {
   if (maxPosX !== undefined && minPosX !== undefined && range.value) {
     const trackWidth = maxPosX - minPosX
     range.value.style.width = `${trackWidth}px`
-    range.value.style.left = `${minPosX + 4}px`
+    range.value.style.left = `${minPosX + 20}px`
   }
 })
 

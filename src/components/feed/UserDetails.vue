@@ -9,7 +9,7 @@ defineProps<{
 </script>
 <template>
   <TransitionWrapper activeClass="!delay-[0.15s]">
-    <div v-show="showDetails" class="pb-10 snap-start min-h-max py-4 text-textPrimary">
+    <div v-show="showDetails" class="pb-10 min-h-max py-4 text-textPrimary">
       <div class="detailsSectionWrapper">
         <h1 class="text-4xl font-medium text-black flex justify-between items-center">
           <p>George <span class="text-3xl font-bold">23</span></p>
