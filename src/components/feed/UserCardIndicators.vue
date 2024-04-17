@@ -2,13 +2,13 @@
 import { useMeetingPersonStore } from '@/stores/MeetingPersonStore'
 import { storeToRefs } from 'pinia'
 
-const { person, currentPhoto } = storeToRefs(useMeetingPersonStore())
+const { currentUser, currentPhoto } = storeToRefs(useMeetingPersonStore())
 </script>
 
 <template>
   <ul class="flex gap-1 px-4 absolute top-2 list-none w-full">
     <li
-      v-for="(image, i) in person.photos"
+      v-for="(image, i) in currentUser?.photos"
       :key="i"
       :class="[
         'w-full h-[4px] rounded-full ',

@@ -7,8 +7,10 @@ import ArrowDownCircle from '@/components/icons/TheArrowDownCircleIcon.vue'
 import { ref } from 'vue'
 import UserDetails from '@/components/feed/UserDetails.vue'
 import TransitionWrapper from '@/components/shared/TransitionWrapper.vue'
+import { getPhotoUrl } from '@/helpers/string'
 
 const { showNextPhoto, showPreviousPhoto } = useMeetingPersonStore()
+const { currentUser } = storeToRefs(useMeetingPersonStore())
 const { currentPhoto } = storeToRefs(useMeetingPersonStore())
 const showDetails = ref(false)
 </script>
@@ -16,13 +18,12 @@ const showDetails = ref(false)
 <template>
   <div
     class="w-full h-[86%] desktop:h-[82%] desktop:max-h-[82%] overflow-auto rounded-t-xl snap-y desktop:rounded-t-3xl relative scroll-smooth"
-    :class="[showDetails && '']"
   >
     <div
       class="bg-gradient-to-t from-black/80 desktop:from-black/60 from-20% to-60% to-transparent w-full h-full absolute top-0 left-0"
     ></div>
 
-    <img :src="currentPhoto" class="h-full w-full rounded-t-xl object-cover" />
+    <img :src="getPhotoUrl(currentPhoto?.url)" class="h-full w-full rounded-t-xl object-cover" />
     <UserCardIndicators />
 
     <div class="w-full h-full top-0 absolute left-0 flex rounded-lg">
@@ -34,10 +35,13 @@ const showDetails = ref(false)
       <TransitionWrapper idleClass="!-translate-x-14">
         <div v-show="!showDetails">
           <h1 class="text-3xl font-bold text-white flex justify-between items-center">
-            <p>Lisa <span class="text-[22px] font-bold">23</span></p>
+            <p>
+              {{ currentUser?.username }}
+              <span class="text-[22px] font-bold">{{ currentUser?.age }}</span>
+            </p>
           </h1>
           <p class="text-white">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, recusandae.
+            {{ currentUser?.bio }}
           </p>
         </div>
       </TransitionWrapper>

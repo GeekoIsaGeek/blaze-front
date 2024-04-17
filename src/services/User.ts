@@ -13,7 +13,7 @@ const retrieveUser = async () => {
     })
     return response.data as User
   } catch (error) {
-    console.error(error)
+    return
   }
 }
 

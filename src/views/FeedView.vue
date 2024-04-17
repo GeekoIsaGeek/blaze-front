@@ -2,6 +2,12 @@
 import UserCard from '@/components/feed/UserCard.vue'
 import NavigationPanel from '@/components/shared/NavigationPanel.vue'
 import TheFireIcon from '@/components/icons/TheFireIcon.vue'
+import { onMounted } from 'vue'
+import { useMeetingPersonStore } from '@/stores/MeetingPersonStore'
+
+const { getMeetingUsers } = useMeetingPersonStore()
+
+onMounted(async () => await getMeetingUsers())
 </script>
 
 <template>

@@ -5,19 +5,21 @@ export type Interest = {
   interest: string
 }
 export type Preference = {
-  show: 'men' | 'women' | 'everyone' | undefined
+  show: 'male' | 'female' | 'everyone' | undefined
   age_from: number | undefined
   age_to: number | undefined
 }
+
+export type Photo = {
+  id: number
+  url: string
+}
 export interface User {
   id: number
-  birthdate: string
+  age: number
   email: string
   username: string
-  photos: {
-    id: number
-    url: string
-  }[]
+  photos: Photo[]
   location: string
   gender: 'male' | 'female' | 'other'
   bio: string

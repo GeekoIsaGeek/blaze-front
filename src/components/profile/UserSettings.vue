@@ -28,7 +28,7 @@ const emit = defineEmits<{
 const handleSelect = (selected: string) =>
   emit('update:preferences', {
     ...props.preferences,
-    show: selected as (typeof SHOW_OPTIONS)[number]
+    show: selected as (typeof SHOW_OPTIONS)[number]['gender']
   })
 
 const handleAgeRangeChange = (from: number, to: number) =>
