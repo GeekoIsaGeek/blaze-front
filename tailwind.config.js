@@ -9,7 +9,8 @@ export default {
         pinkishRed: '#fd1d5a',
         orange: '#fc7f45',
         active: '#ff0059',
-        textPrimary: '#505965'
+        textPrimary: '#505965',
+        trueGreen: '#5cb85c'
       },
       screens: {
         desktop: '640px'

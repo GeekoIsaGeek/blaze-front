@@ -17,14 +17,14 @@ const { currentUser } = storeToRefs(useMeetingPersonStore())
     <div v-show="showDetails" class="pb-10 min-h-max py-4 text-textPrimary">
       <div class="detailsSectionWrapper">
         <h1 class="text-4xl font-medium text-black flex gap-2 items-center">
-          {{ currentUser?.username }} <span class="text-3xl font-bold">23</span>
+          {{ currentUser?.username }} <span class="text-3xl font-bold">{{ currentUser?.age }}</span>
         </h1>
         <div class="mt-3 flex gap-1 items-center" v-if="currentUser?.location">
           <LocationIcon class="w-5 h-5" /> <span class="text-md">{{ currentUser?.location }}</span>
         </div>
       </div>
 
-      <p class="detailsSectionWrapper" v-if="currentUser?.bio">
+      <p class="detailsSectionWrapper min-h-24" v-if="currentUser?.bio">
         {{ currentUser?.bio }}
       </p>
 
