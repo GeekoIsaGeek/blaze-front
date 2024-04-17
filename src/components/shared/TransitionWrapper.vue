@@ -10,7 +10,7 @@ defineProps<{
     :enterFromClass="`opacity-0 generalTransition ${idleClass}`"
     :enterToClass="`opacity-1 generalTransition ${activeClass}`"
     :leaveToClass="`opacity-0 generalTransition ${idleClass}`"
-    class="snap-center"
+    class="snap-start"
   >
     <slot
   /></Transition>

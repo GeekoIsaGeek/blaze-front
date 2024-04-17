@@ -9,18 +9,22 @@ import UserDetails from '@/components/feed/UserDetails.vue'
 import TransitionWrapper from '@/components/shared/TransitionWrapper.vue'
 import { getPhotoUrl } from '@/helpers/string'
 import { getClientPositions } from '@/helpers/browser'
+import useIsMobile from '@/composables/useIsMobile'
+import NoContent from '@/components/shared/NoContent.vue'
 
 const { showNextPhoto, showPreviousPhoto } = useMeetingPersonStore()
 const { currentUser } = storeToRefs(useMeetingPersonStore())
 const { currentPhoto } = storeToRefs(useMeetingPersonStore())
 const showDetails = ref(false)
 
+const { isMobile } = useIsMobile()
+
 const isDragging = ref(false)
 const offsetX = ref(0)
 const offsetY = ref(0)
 const cardStyles = ref({
   x: 0,
-  y: 3.5,
+  y: isMobile.value ? 2.6 : 3.5,
   rotate: 0
 })
 
@@ -49,7 +53,7 @@ const handleDragEnd = () => {
   isDragging.value = false
   cardStyles.value = {
     x: 0,
-    y: 3.5,
+    y: isMobile.value ? 2.6 : 3.5,
     rotate: 0
   }
 }
@@ -57,7 +61,7 @@ const handleDragEnd = () => {
 
 <template>
   <div
-    class="w-full h-[86%] desktop:h-[82%] desktop:max-h-[82%] overflow-auto desktop:rounded-xl snap-y scroll-smooth absolute top-[8%]"
+    class="w-full h-[86%] desktop:h-[82%] desktop:max-h-[82%] overflow-auto desktop:rounded-t-xl snap-y scroll-smooth absolute top-[8%]"
     @dragenter="handleDragStart"
     @dragleave="handleDragEnd"
     @drag="handleDragging"
@@ -69,6 +73,7 @@ const handleDragEnd = () => {
       top: cardStyles.y + 'rem',
       transform: `rotate(${cardStyles.rotate}deg)`
     }"
+    v-if="currentUser"
   >
     <div
       class="bg-gradient-to-t from-black/80 desktop:from-black/60 from-20% to-60% to-transparent w-full h-full absolute top-0 left-0"
@@ -94,7 +99,7 @@ const handleDragEnd = () => {
       <div class="h-full w-[50%]" @click="showNextPhoto()"></div>
     </div>
 
-    <div class="px-[3%] absolute w-full bottom-0 py-4 z-10 select-none">
+    <div class="px-[3%] absolute w-full bottom-0 py-4 z-10 select-none" @touchstart.stop>
       <TransitionWrapper idleClass="!-translate-x-14">
         <div v-show="!showDetails">
           <h1 class="text-3xl font-bold text-white flex justify-between items-center">
@@ -121,4 +126,5 @@ const handleDragEnd = () => {
     </div>
     <UserDetails :showDetails="showDetails" />
   </div>
+  <NoContent v-else />
 </template>

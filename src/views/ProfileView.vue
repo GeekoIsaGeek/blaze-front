@@ -10,13 +10,14 @@ import UserGender from '@/components/profile/UserGender.vue'
 import UserLanguages from '@/components/profile/UserLanguages.vue'
 import type { ProfileForm, UpdatedPreferences } from '@/types/Forms'
 import { useUserStore } from '@/stores/UserStore'
-import { useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { onMounted, ref } from 'vue'
 import UserSettings from '@/components/profile/UserSettings.vue'
 
 const { handleSubmit, resetForm } = useForm()
 const { updateProfile, updateUserPreferences } = useUserStore()
 const { push: navigate } = useRouter()
+const { query } = useRoute()
 
 const userPreferences = useUserStore().user?.preference
 
@@ -24,6 +25,12 @@ const currentPreferences = ref({
   show: userPreferences?.show,
   age_from: userPreferences?.age_from,
   age_to: userPreferences?.age_to
+})
+
+onMounted(() => {
+  if (query?.show_settings) {
+    showSettings.value = true
+  }
 })
 
 const showSettings = ref(false)
