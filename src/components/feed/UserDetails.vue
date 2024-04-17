@@ -14,7 +14,7 @@ const { currentUser } = storeToRefs(useMeetingPersonStore())
 </script>
 <template>
   <TransitionWrapper activeClass="!delay-[0.15s]">
-    <div v-show="showDetails" class="pb-10 min-h-max py-4 text-textPrimary">
+    <div v-if="showDetails" class="pb-10 min-h-max py-4 text-textPrimary">
       <div class="detailsSectionWrapper">
         <h1 class="text-4xl font-medium text-black flex gap-2 items-center">
           {{ currentUser?.username }} <span class="text-3xl font-bold">{{ currentUser?.age }}</span>

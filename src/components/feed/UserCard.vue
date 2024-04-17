@@ -25,8 +25,8 @@ const cardStyles = ref({
 })
 
 const handleDragStart = (event: MouseEvent | TouchEvent) => {
+  showDetails.value = false
   isDragging.value = true
-
   const { posX, posY } = getClientPositions(event)
 
   offsetX.value = posX - cardStyles.value.x
@@ -75,7 +75,7 @@ const handleDragEnd = () => {
       class="h-full w-full rounded-t-xl object-cover select-none"
     />
     <p
-      class="absolute top-[100px] right-[30%] text-5xl font-bold text-pinkishRed border-[5px] px-5 py-2 rounded-lg border-pinkishRed uppercase transitions"
+      class="absolute top-[100px] right-[30%] text-5xl font-medium text-pinkishRed border-[5px] px-4 py-1 rounded-lg border-pinkishRed uppercase transitions"
       :class="[
         cardStyles.x < 0 ? 'text-pinkishRed border-pinkishRed' : 'text-trueGreen border-trueGreen'
       ]"
