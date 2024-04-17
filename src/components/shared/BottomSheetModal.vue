@@ -53,7 +53,7 @@ const handleMouseUp = () => (startY.value = 0)
     leaveToClass="opacity-0 bottomSheetTransition"
   >
     <div
-      class="bg-black/30 w-full h-full max-h-[100vh] overflow-y-auto absolute top-0"
+      class="bg-black/30 w-full h-full max-h-[100vh] overflow-y-auto absolute top-0 rounded-2xl"
       @click="emit('hideModal')"
       v-if="showModal"
     >
