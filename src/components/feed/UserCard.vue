@@ -24,7 +24,7 @@ const cardStyles = ref({
   rotate: 0
 })
 
-const handleDragStart = (event: MouseEvent | TouchEvent) => {
+const handleDragStart = (event: DragEvent | TouchEvent) => {
   showDetails.value = false
   isDragging.value = true
   const { posX, posY } = getClientPositions(event)
@@ -33,30 +33,34 @@ const handleDragStart = (event: MouseEvent | TouchEvent) => {
   offsetY.value = posY - cardStyles.value.y - 50
 }
 
-const handleDragging = (event: MouseEvent | TouchEvent) => {
+const handleDragging = (event: DragEvent | TouchEvent) => {
   if (isDragging.value) {
     const { posX, posY } = getClientPositions(event)
 
-    cardStyles.value.x = (posX - offsetX.value) / 16
-    cardStyles.value.y = (posY - offsetY.value) / 16
-    cardStyles.value.rotate = cardStyles.value.x * 0.65
+    cardStyles.value = {
+      x: (posX - offsetX.value) / 16,
+      y: (posY - offsetY.value) / 16,
+      rotate: cardStyles.value.x * 0.65
+    }
   }
 }
 
 const handleDragEnd = () => {
   isDragging.value = false
-  cardStyles.value.x = 0
-  cardStyles.value.y = 3.5
-  cardStyles.value.rotate = 0
+  cardStyles.value = {
+    x: 0,
+    y: 3.5,
+    rotate: 0
+  }
 }
 </script>
 
 <template>
   <div
     class="w-full h-[86%] desktop:h-[82%] desktop:max-h-[82%] overflow-auto desktop:rounded-xl snap-y scroll-smooth absolute top-[8%]"
-    @mousedown="handleDragStart"
-    @mouseup="handleDragEnd"
-    @mousemove="handleDragging"
+    @dragenter="handleDragStart"
+    @dragleave="handleDragEnd"
+    @drag="handleDragging"
     @touchstart="handleDragStart"
     @touchmove="handleDragging"
     @touchend="handleDragEnd"

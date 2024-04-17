@@ -11,7 +11,9 @@ onMounted(async () => await getMeetingUsers())
 </script>
 
 <template>
-  <div class="pb-3 pt-2 w-full flex items-end text-lg px-[3%] text-primary font-semibold">
+  <div
+    class="pb-3 pt-2 w-full flex items-end text-lg px-[3%] text-primary font-semibold select-none"
+  >
     <TheFireIcon class="fill-primary w-8 h-8" />
     Blaze
   </div>
