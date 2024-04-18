@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import UserCard from '@/components/feed/UserCard.vue'
 import NavigationPanel from '@/components/shared/NavigationPanel.vue'
 import TheFireIcon from '@/components/icons/TheFireIcon.vue'
 import { onMounted } from 'vue'
 import { useMeetingPersonStore } from '@/stores/MeetingPersonStore'
+import Feed from '@/components/feed/TheFeed.vue'
 
 const { getMeetingUsers } = useMeetingPersonStore()
 
@@ -17,6 +17,6 @@ onMounted(async () => await getMeetingUsers())
     <TheFireIcon class="fill-primary w-8 h-8" />
     Blaze
   </div>
-  <UserCard />
+  <Feed />
   <NavigationPanel />
 </template>

@@ -2,10 +2,38 @@
 import ArrowLeft from '@/components/icons/TheArrowLeft.vue'
 import ArrowRight from '@/components/icons/TheArrowRight.vue'
 import useIsMobile from '@/composables/useIsMobile'
-import { useMeetingPersonStore } from '@/stores/MeetingPersonStore.ts'
+import type { Photo } from '@/types/Pinia'
+
+const props = defineProps<{
+  photos: Photo[]
+  currentPhoto: Photo
+  currentPhotoId: number
+}>()
+
+const emit = defineEmits<{
+  'update:currentPhotoId': [id: number]
+}>()
 
 const { isMobile } = useIsMobile()
-const { showPreviousPhoto, showNextPhoto } = useMeetingPersonStore()
+
+const showNextPhoto = () => {
+  if (!props?.photos) return
+
+  const photos = props?.photos
+
+  if (photos.length - 1 > props?.currentPhotoId) {
+    console.log()
+    emit('update:currentPhotoId', props?.currentPhotoId + 1)
+  }
+}
+
+const showPreviousPhoto = () => {
+  if (!props?.photos) return
+
+  if (props?.currentPhotoId > 0) {
+    emit('update:currentPhotoId', props?.currentPhotoId - 1)
+  }
+}
 </script>
 <template>
   <div class="w-full h-full top-0 absolute left-0 flex rounded-lg" v-if="isMobile">

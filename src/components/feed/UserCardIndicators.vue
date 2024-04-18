@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { useMeetingPersonStore } from '@/stores/MeetingPersonStore'
-import { storeToRefs } from 'pinia'
+import type { Photo } from '@/types/Pinia'
 
-const { currentUser, currentPhoto } = storeToRefs(useMeetingPersonStore())
+defineProps<{
+  currentPhoto: Photo
+  photos: Photo[]
+}>()
 </script>
 
 <template>
   <ul class="flex gap-1 px-4 absolute top-2 list-none w-full">
     <li
-      v-for="(image, i) in currentUser?.photos"
+      v-for="(image, i) in photos"
       :key="i"
       :class="[
         'w-full h-[4px] rounded-full ',
