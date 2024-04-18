@@ -71,8 +71,7 @@ const handleSwipeEnd = () => {
     :style="{
       left: cardStyles.x + 'rem',
       top: cardStyles.y + 'rem',
-      transform: `rotate(${cardStyles.rotate}deg)`,
-      zIndex: 10 * userData.id + 11
+      transform: `rotate(${cardStyles.rotate}deg)`
     }"
   >
     <div
