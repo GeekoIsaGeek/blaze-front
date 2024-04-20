@@ -13,3 +13,22 @@ export const getUsers = async () => {
     console.error(error)
   }
 }
+
+export const addToDislikesList = async (userId: number) => {
+  try {
+    const response = await request.post(
+      `/api/user/dislikes/add/${userId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${getToken('auth')}`
+        }
+      }
+    )
+    if (response.status === 200) {
+      return response.data
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}

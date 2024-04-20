@@ -2,61 +2,29 @@
 import UserCardButtons from '@/components/feed/UserCardButtons.vue'
 import UserCardIndicators from '@/components/feed/UserCardIndicators.vue'
 import ArrowDownCircle from '@/components/icons/TheArrowDownCircleIcon.vue'
-import { computed, ref } from 'vue'
 import UserDetails from '@/components/feed/UserDetails.vue'
 import TransitionWrapper from '@/components/shared/TransitionWrapper.vue'
 import { getPhotoUrl } from '@/helpers/string'
-import { getClientPositions } from '@/helpers/browser'
 import SwipeIndicator from '@/components/feed/SwipeIndicator.vue'
 import SliderArrows from '@/components/feed/SliderArrows.vue'
+import useUserCard from '@/composables/useUserCard'
 import type { Person } from '@/types/MeetingPerson'
 
 const props = defineProps<{
   userData: Person
 }>()
 
-const currentPhotoId = ref(0)
-const currentPhoto = computed(() => props?.userData?.photos?.[currentPhotoId.value])
-const showDetails = ref(false)
-
-const isSwiping = ref(false)
-const offsetX = ref(0)
-const offsetY = ref(0)
-const cardStyles = ref({
-  x: 0,
-  y: 3.5,
-  rotate: 0
-})
-
-const handleSwipeStart = (event: MouseEvent | TouchEvent) => {
-  showDetails.value = false
-  isSwiping.value = true
-  const { posX, posY } = getClientPositions(event)
-
-  offsetX.value = posX - cardStyles.value.x
-  offsetY.value = posY - cardStyles.value.y - 50
-}
-
-const handleSwiping = (event: MouseEvent | TouchEvent) => {
-  if (isSwiping.value) {
-    const { posX, posY } = getClientPositions(event)
-
-    cardStyles.value = {
-      x: (posX - offsetX.value) / 16,
-      y: (posY - offsetY.value) / 16,
-      rotate: cardStyles.value.x * 0.8
-    }
-  }
-}
-
-const handleSwipeEnd = () => {
-  isSwiping.value = false
-  cardStyles.value = {
-    x: 0,
-    y: 3.5,
-    rotate: 0
-  }
-}
+const {
+  currentPhoto,
+  interaction,
+  handleSwipeEnd,
+  handleSwipeStart,
+  handleSwiping,
+  cardStyles,
+  currentPhotoId,
+  showDetails,
+  handleDislike
+} = useUserCard(props.userData)
 </script>
 
 <template>
@@ -82,7 +50,7 @@ const handleSwipeEnd = () => {
       class="h-full w-full rounded-t-xl object-cover select-none"
     />
 
-    <SwipeIndicator :cardStyles="cardStyles" />
+    <SwipeIndicator :interaction="interaction" />
 
     <UserCardIndicators :currentPhoto="currentPhoto" :photos="userData.photos" />
 
@@ -111,7 +79,8 @@ const handleSwipeEnd = () => {
         </div>
       </TransitionWrapper>
 
-      <UserCardButtons />
+      <UserCardButtons @handleDislike="() => handleDislike(userData?.id)" />
+
       <ArrowDownCircle
         class="w-7 h-7"
         @click="showDetails = !showDetails"

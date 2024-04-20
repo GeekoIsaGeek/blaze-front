@@ -41,7 +41,7 @@ const showPreviousPhoto = () => {
     <div class="h-full w-[50%]" @click="showNextPhoto()"></div>
   </div>
 
-  <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out" v-else>
+  <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-linear" v-else>
     <ArrowLeft
       class="w-12 h-12 absolute left-0 top-[45%] hover:scale-110 transitions cursor-pointer"
       @click="showPreviousPhoto()"

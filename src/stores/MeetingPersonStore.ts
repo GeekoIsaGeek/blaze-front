@@ -1,11 +1,10 @@
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { type Person } from '@/types/MeetingPerson'
-import { getUsers } from '@/services/MeetingUsers'
+import { addToDislikesList, getUsers } from '@/services/MeetingUsers'
 
 export const useMeetingPersonStore = defineStore('meetingPerson', () => {
-  const users = ref<Person[]>([])
-  const currentUser = computed(() => users.value[0])
+  const users = ref<Person[]>()
   const isLoading = ref(false)
 
   const getMeetingUsers = async () => {
@@ -17,5 +16,19 @@ export const useMeetingPersonStore = defineStore('meetingPerson', () => {
     isLoading.value = false
   }
 
-  return { currentUser, users, getMeetingUsers, isLoading }
+  const handleDislike = async (userId: number) => {
+    if (!userId) return
+
+    const replacerUsers = await addToDislikesList(userId)
+    if (replacerUsers) {
+      users.value = (() => {
+        if (users.value && users.value?.length > 2) {
+          return [...(users.value?.filter((user) => user.id !== userId) || []), ...replacerUsers]
+        }
+        return replacerUsers
+      })()
+    }
+  }
+
+  return { users, getMeetingUsers, isLoading, handleDislike }
 })

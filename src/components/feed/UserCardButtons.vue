@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import TheHeartIcon from '@/components/icons/TheHeartIcon.vue'
 import TheXIcon from '@/components/icons/TheXIcon.vue'
+
+defineEmits<{
+  handleDislike: []
+}>()
 </script>
 
 <template>
@@ -12,6 +16,7 @@ import TheXIcon from '@/components/icons/TheXIcon.vue'
     </button>
     <button
       class="shadow-lg h-[44px] w-[44px] rounded-full bg-white hover:bg-active flex transition-colors duration-300 ease-out items-center justify-center group/button"
+      @click="$emit('handleDislike')"
     >
       <TheXIcon
         class="fill-active group-hover/button:fill-white transition-fill duration-[.4s] ease"
