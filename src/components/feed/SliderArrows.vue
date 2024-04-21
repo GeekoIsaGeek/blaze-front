@@ -22,7 +22,6 @@ const showNextPhoto = () => {
   const photos = props?.photos
 
   if (photos.length - 1 > props?.currentPhotoId) {
-    console.log()
     emit('update:currentPhotoId', props?.currentPhotoId + 1)
   }
 }
