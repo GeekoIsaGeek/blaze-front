@@ -23,13 +23,15 @@ const {
   cardStyles,
   currentPhotoId,
   showDetails,
-  handleDislike
+  handleDislike,
+  isSwiping
 } = useUserCard(props.userData)
 </script>
 
 <template>
   <div
     class="w-full h-[84%] desktop:h-[82%] desktop:max-h-[82%] overflow-auto desktop:rounded-t-xl snap-y scroll-smooth absolute top-[8%] group"
+    :class="[!isSwiping && '!transition-all !ease-linear !duration-[0.5s]']"
     @mousedown="handleSwipeStart"
     @mouseup="handleSwipeEnd"
     @mousemove="handleSwiping"
@@ -38,8 +40,9 @@ const {
     @touchend="handleSwipeEnd"
     :style="{
       left: cardStyles.x + 'rem',
-      top: cardStyles.y + 'rem',
-      transform: `rotate(${cardStyles.rotate}deg)`
+      top: cardStyles.y + (!isSwiping && cardStyles.x !== 0 ? 'vh' : 'rem'),
+      transform: `rotate(${cardStyles.rotate}deg)`,
+      opacity: cardStyles.opacity
     }"
   >
     <div
@@ -88,6 +91,8 @@ const {
           showDetails ? 'rotate-90' : '-rotate-90',
           'transitions hover:scale-110 cursor-pointer absolute right-6 bottom-6 shadow-lg rounded-full'
         ]"
+        @mouseup.stop
+        @touchend.stop
       />
     </div>
     <UserDetails :showDetails="showDetails" :data="userData" @mousedown.stop @touchstart.stop />

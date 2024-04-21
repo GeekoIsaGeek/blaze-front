@@ -36,12 +36,16 @@ const showPreviousPhoto = () => {
 }
 </script>
 <template>
-  <div class="w-full h-full top-0 absolute left-0 flex rounded-lg" v-if="isMobile">
+  <div class="w-full h-full top-0 absolute left-0 flex rounded-lg" v-if="isMobile" @touchstop.stop>
     <div class="h-full w-[50%]" @click="showPreviousPhoto()"></div>
     <div class="h-full w-[50%]" @click="showNextPhoto()"></div>
   </div>
 
-  <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-linear" v-else>
+  <div
+    class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-linear"
+    @mouseup.stop
+    v-else
+  >
     <ArrowLeft
       class="w-12 h-12 absolute left-0 top-[45%] hover:scale-110 transitions cursor-pointer"
       @click="showPreviousPhoto()"

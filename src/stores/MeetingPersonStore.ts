@@ -28,6 +28,7 @@ export const useMeetingPersonStore = defineStore('meetingPerson', () => {
         return replacerUsers
       })()
     }
+    return true
   }
 
   return { users, getMeetingUsers, isLoading, handleDislike }

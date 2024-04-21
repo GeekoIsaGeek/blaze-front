@@ -2,6 +2,7 @@ import { computed, ref } from 'vue'
 import { getClientPositions } from '@/helpers/browser'
 import type { Person } from '@/types/MeetingPerson'
 import { useMeetingPersonStore } from '@/stores/MeetingPersonStore'
+import { cardResetStyles } from '@/config/defaultValues'
 
 const useUserCard = (userData: Person) => {
   const currentPhotoId = ref(0)
@@ -16,11 +17,7 @@ const useUserCard = (userData: Person) => {
   const isSwiping = ref(false)
   const offsetX = ref(0)
   const offsetY = ref(0)
-  const cardStyles = ref({
-    x: 0,
-    y: 3.5,
-    rotate: 0
-  })
+  const cardStyles = ref(cardResetStyles)
 
   const handleSwipeStart = (event: MouseEvent | TouchEvent) => {
     showDetails.value = false
@@ -38,7 +35,8 @@ const useUserCard = (userData: Person) => {
       cardStyles.value = {
         x: (posX - offsetX.value) / 16,
         y: (posY - offsetY.value) / 16,
-        rotate: cardStyles.value.x * 0.8
+        rotate: cardStyles.value.x * 0.8,
+        opacity: 1
       }
     }
   }
@@ -46,10 +44,25 @@ const useUserCard = (userData: Person) => {
   const handleSwipeEnd = () => {
     isSwiping.value = false
 
-    cardStyles.value = {
-      x: 0,
-      y: 3.5,
-      rotate: 0
+    const currentStyles = cardStyles.value
+
+    if (interaction.value === 'dislike') {
+      cardStyles.value = {
+        x: currentStyles.x - 20,
+        y: currentStyles.y + 100,
+        rotate: currentStyles.rotate - 25,
+        opacity: 0.5
+      }
+      setTimeout(() => handleDislike(userData?.id), 200)
+    } else if (interaction.value === 'like') {
+      cardStyles.value = {
+        x: currentStyles.x + 20,
+        y: currentStyles.y + 100,
+        rotate: currentStyles.rotate + 25,
+        opacity: 0.5
+      }
+    } else {
+      cardStyles.value = cardResetStyles
     }
   }
 
@@ -62,7 +75,8 @@ const useUserCard = (userData: Person) => {
     cardStyles,
     currentPhotoId,
     showDetails,
-    handleDislike
+    handleDislike,
+    isSwiping
   }
 }
 
