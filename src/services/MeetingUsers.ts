@@ -14,10 +14,10 @@ export const getUsers = async () => {
   }
 }
 
-export const addToDislikesList = async (userId: number) => {
+export const handleInteraction = async (userId: number, interactionType: 'dislike' | 'like') => {
   try {
     const response = await request.post(
-      `/api/user/dislikes/add/${userId}`,
+      `/api/user/${interactionType}s/add/${userId}`,
       {},
       {
         headers: {

@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { type Person } from '@/types/MeetingPerson'
-import { addToDislikesList, getUsers } from '@/services/MeetingUsers'
+import { handleInteraction, getUsers } from '@/services/MeetingUsers'
+import type { InteractionType } from '@/types/Unions'
 
 export const useMeetingPersonStore = defineStore('meetingPerson', () => {
   const users = ref<Person[]>()
@@ -16,10 +17,10 @@ export const useMeetingPersonStore = defineStore('meetingPerson', () => {
     isLoading.value = false
   }
 
-  const handleDislike = async (userId: number) => {
-    if (!userId) return
+  const handleSwipe = async (userId: number, interactionType: InteractionType | null) => {
+    if (!userId || !interactionType) return
 
-    const replacerUsers = await addToDislikesList(userId)
+    const replacerUsers = await handleInteraction(userId, interactionType)
     if (replacerUsers) {
       users.value = (() => {
         if (users.value && users.value?.length > 2) {
@@ -31,5 +32,5 @@ export const useMeetingPersonStore = defineStore('meetingPerson', () => {
     return true
   }
 
-  return { users, getMeetingUsers, isLoading, handleDislike }
+  return { users, getMeetingUsers, isLoading, handleSwipe }
 })

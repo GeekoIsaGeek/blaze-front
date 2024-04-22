@@ -8,7 +8,7 @@ const useUserCard = (userData: Person) => {
   const currentPhotoId = ref(0)
   const currentPhoto = computed(() => userData?.photos?.[currentPhotoId.value])
   const showDetails = ref(false)
-  const { handleDislike } = useMeetingPersonStore()
+  const { handleSwipe } = useMeetingPersonStore()
 
   const interaction = computed(() =>
     cardStyles.value.x === 0 ? null : cardStyles.value.x > 0 ? 'like' : 'dislike'
@@ -53,7 +53,7 @@ const useUserCard = (userData: Person) => {
         rotate: currentStyles.rotate - 25,
         opacity: 0.5
       }
-      setTimeout(() => handleDislike(userData?.id), 200)
+      setTimeout(() => handleSwipe(userData?.id, 'dislike'), 200)
     } else if (interaction.value === 'like') {
       cardStyles.value = {
         x: currentStyles.x + 20,
@@ -61,6 +61,7 @@ const useUserCard = (userData: Person) => {
         rotate: currentStyles.rotate + 25,
         opacity: 0.5
       }
+      setTimeout(() => handleSwipe(userData?.id, 'like'), 200)
     } else {
       cardStyles.value = cardResetStyles
     }
@@ -75,7 +76,7 @@ const useUserCard = (userData: Person) => {
     cardStyles,
     currentPhotoId,
     showDetails,
-    handleDislike,
+    handleSwipe,
     isSwiping
   }
 }

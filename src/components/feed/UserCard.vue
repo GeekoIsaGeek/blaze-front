@@ -9,6 +9,7 @@ import SwipeIndicator from '@/components/feed/SwipeIndicator.vue'
 import SliderArrows from '@/components/feed/SliderArrows.vue'
 import useUserCard from '@/composables/useUserCard'
 import type { Person } from '@/types/MeetingPerson'
+import type { InteractionType } from '@/types/Unions'
 
 const props = defineProps<{
   userData: Person
@@ -23,7 +24,7 @@ const {
   cardStyles,
   currentPhotoId,
   showDetails,
-  handleDislike,
+  handleSwipe,
   isSwiping
 } = useUserCard(props.userData)
 </script>
@@ -82,7 +83,9 @@ const {
         </div>
       </TransitionWrapper>
 
-      <UserCardButtons @handleDislike="() => handleDislike(userData?.id)" />
+      <UserCardButtons
+        @handleSwipe="(interaction: InteractionType) => handleSwipe(userData?.id, interaction)"
+      />
 
       <ArrowDownCircle
         class="w-7 h-7"
