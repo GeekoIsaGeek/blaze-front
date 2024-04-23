@@ -12,8 +12,7 @@ const { users, isLoading } = storeToRefs(useMeetingPersonStore())
 const { user } = useUserStore()
 
 onMounted(() => {
-  console.log(echo)
-  echo.channel(`match.${user?.id}`).listen('.matched', (e) => console.log(e))
+  echo.private(`match.${user?.id}`).listen('.matched', (e) => console.log(e))
 })
 
 onUnmounted(() => {

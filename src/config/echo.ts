@@ -1,7 +1,6 @@
 import { getToken } from '@/helpers/tokens'
 import Echo from 'laravel-echo'
 import Pusher from 'pusher-js'
-import request from './axiosInstance'
 
 window.Pusher = Pusher
 
@@ -14,29 +13,10 @@ export const echo = new Echo({
   forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
   enabledTransports: ['ws', 'wss'],
 
-  authorizer: (channel: { name: string }) => {
-    return {
-      authorize: (socketId: string, callback: (par1: boolean, par2: unknown) => void) => {
-        request
-          .post(
-            '/api/broadcasting/auth',
-            {
-              socket_id: socketId,
-              channel_name: channel.name
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${getToken('auth')}`
-              }
-            }
-          )
-          .then((response) => {
-            callback(false, response)
-          })
-          .catch((error) => {
-            callback(true, error)
-          })
-      }
+  auth: {
+    headers: {
+      Authorization: `Bearer ${getToken('auth')}`
     }
-  }
+  },
+  authEndpoint: `${import.meta.env.VITE_SERVER_URL}/api/broadcasting/auth`
 })
