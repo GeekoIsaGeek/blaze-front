@@ -13,7 +13,6 @@ export const echo = new Echo({
   wssPort: import.meta.env.VITE_REVERB_PORT,
   forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
   enabledTransports: ['ws', 'wss'],
-  host: import.meta.env.VITE_REVERB_HOST,
 
   authorizer: (channel: { name: string }) => {
     return {
@@ -41,5 +40,3 @@ export const echo = new Echo({
     }
   }
 })
-
-window.Echo = echo

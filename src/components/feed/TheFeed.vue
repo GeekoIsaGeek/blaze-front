@@ -5,16 +5,15 @@ import { storeToRefs } from 'pinia'
 import NoContent from '@/components/shared/NoContent.vue'
 import Loading from '@/components/shared/LoadingSpinner.vue'
 import { onMounted, onUnmounted } from 'vue'
-import { echo } from '@/config/echo'
 import { useUserStore } from '@/stores/UserStore'
+import { echo } from '@/config/echo'
 
 const { users, isLoading } = storeToRefs(useMeetingPersonStore())
 const { user } = useUserStore()
 
 onMounted(() => {
-  echo.private(`match.${user?.id}`).listen('Matched', (data: unknown) => {
-    console.log(data.user)
-  })
+  console.log(echo)
+  echo.channel(`match.${user?.id}`).listen('.matched', (e) => console.log(e))
 })
 
 onUnmounted(() => {
