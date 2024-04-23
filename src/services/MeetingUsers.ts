@@ -1,5 +1,6 @@
 import request from '@/config/axiosInstance'
 import { getToken } from '@/helpers/tokens'
+import type { InteractionType } from '@/types/Unions'
 
 export const getUsers = async () => {
   try {
@@ -14,7 +15,7 @@ export const getUsers = async () => {
   }
 }
 
-export const handleInteraction = async (userId: number, interactionType: 'dislike' | 'like') => {
+export const handleInteraction = async (userId: number, interactionType: InteractionType) => {
   try {
     const response = await request.post(
       `/api/user/${interactionType}s/add/${userId}`,
