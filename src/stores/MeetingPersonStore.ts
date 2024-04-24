@@ -3,10 +3,13 @@ import { ref } from 'vue'
 import { type Person } from '@/types/MeetingPerson'
 import { handleInteraction, getUsers } from '@/services/MeetingUsers'
 import type { InteractionType } from '@/types/Unions'
+import type { MatchedEventData } from '@/types/WebSocket'
 
 export const useMeetingPersonStore = defineStore('meetingPerson', () => {
   const users = ref<Person[]>()
   const isLoading = ref(false)
+
+  const matchedUser = ref<MatchedEventData['likerDetails']>()
 
   const getMeetingUsers = async () => {
     isLoading.value = true
@@ -32,5 +35,9 @@ export const useMeetingPersonStore = defineStore('meetingPerson', () => {
     return true
   }
 
-  return { users, getMeetingUsers, isLoading, handleSwipe }
+  const updateMatchedUser = (data: MatchedEventData['likerDetails'] | undefined) => {
+    matchedUser.value = data
+  }
+
+  return { users, getMeetingUsers, isLoading, handleSwipe, matchedUser, updateMatchedUser }
 })
