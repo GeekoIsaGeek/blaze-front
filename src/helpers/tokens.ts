@@ -5,7 +5,7 @@ export const setToken = (key: string, token: string) => {
 }
 
 export const getToken = (key: string) => {
-  return JSON.parse(localStorage.getItem(key) || '')
+  return JSON.parse(localStorage.getItem(key) as string) || ''
 }
 
 export const removeToken = (key: string) => {

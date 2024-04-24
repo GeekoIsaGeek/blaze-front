@@ -51,6 +51,7 @@ const {
     ></div>
     <img
       :src="getPhotoUrl(currentPhoto?.url)"
+      prefetch
       class="h-full w-full rounded-t-xl object-cover select-none"
     />
 
