@@ -31,6 +31,7 @@
   .navigationButtonH {
     transform: scale(120%);
   }
+
   .transitions {
     transition:
       color 0.15s ease-out,

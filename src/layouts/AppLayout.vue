@@ -4,7 +4,7 @@
   >
     <div
       id="mainLayout"
-      class="h-screen w-full flex flex-col justify-between desktop:w-[500px] desktop:h-[800px] bg-white desktop:rounded-xl mainWrapperShadow relative overflow-hidden desktop:overflow-visible"
+      class="h-screen w-full flex flex-col justify-between desktop:w-[500px] desktop:h-[800px] bg-white desktop:rounded-2xl mainWrapperShadow relative overflow-hidden desktop:overflow-visible"
     >
       <slot />
     </div>

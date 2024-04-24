@@ -3,6 +3,7 @@ import TransitionWrapper from '@/components/shared/TransitionWrapper.vue'
 import TheHeartIcon from '@/components/icons/TheHeartIcon.vue'
 import { useUserStore } from '@/stores/UserStore'
 import type { MatchedEventData } from '@/types/WebSocket'
+import TheFireIcon from '@/components/icons/TheFireIcon.vue'
 
 defineProps<{
   liker: MatchedEventData['likerDetails']
@@ -18,16 +19,22 @@ const { user } = useUserStore()
 <template>
   <TransitionWrapper appear idleClass="!h-0">
     <div
-      class="flex items-center justify-center flex-col gap-4 absolute desktop:rounded-xl p-10 top-0 bg-black/80 backdrop-blur-xl text-white h-full w-full font-semibold [text-shadow:_0_1px_0_rgb(0_0_0_/_90%)]"
+      class="flex items-center justify-center flex-col gap-4 absolute desktop:rounded-2xl p-10 top-0 bg-black/80 backdrop-blur-sm text-pink-100 h-full w-full font-semibold desktop:border-[5px] border-fadedPrimary"
     >
-      <h1 class="text-4xl desktop:text-5xl text-center">Congratulations!</h1>
-      <p class="text-xl max-w-[80%] text-center">You matched with {{ liker.username }}</p>
-      <div class="my-14 desktop:gap-2 flex items-center justify-center w-full">
+      <h1 class="text-4xl desktop:text-5xl text-center">Fresh Match!</h1>
+      <p class="text-xl desktop:text-2xl max-w-[80%] text-center">
+        You just matched with {{ liker.username }}
+      </p>
+
+      <div class="my-14 flex gap-2 items-center justify-center w-full">
         <img
           :src="user?.photos[0].url"
           class="rounded-full w-[6rem] h-[6rem] desktop:w-[8rem] desktop:h-[8rem] shadow-lg object-cover"
         />
-        <TheHeartIcon color="#fd1d5a" class="absolute w-8 h-8 desktop:w-12 desktop:h-12" />
+
+        <TheFireIcon
+          class="fill-rose-200 animate-pulse absolute w-8 h-8 desktop:w-12 desktop:h-12"
+        />
         <img
           :src="liker?.photo?.url"
           class="rounded-full w-[6rem] h-[6rem] desktop:w-[8rem] desktop:h-[8rem] shadow-lg object-cover"
