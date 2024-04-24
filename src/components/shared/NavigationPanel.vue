@@ -18,9 +18,9 @@ const getClasses = (route: Route) => [
     <RouterLink :to="{ name: 'feed' }">
       <TheFireIcon :class="getClasses('/feed')" />
     </RouterLink>
-    <button>
-      <TheChatIcon :class="getClasses('/chat')" />
-    </button>
+    <RouterLink :to="{ name: 'chats' }">
+      <TheChatIcon :class="getClasses('/chats')" />
+    </RouterLink>
     <RouterLink :to="{ name: 'profile' }">
       <TheProfileIcon :class="getClasses('/profile')" />
     </RouterLink>

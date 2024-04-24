@@ -13,6 +13,7 @@ import { useUserStore } from '@/stores/UserStore'
 import { useRouter, useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import UserSettings from '@/components/profile/UserSettings.vue'
+import MainContentWrapper from '@/components/shared/MainContentWrapper.vue'
 
 const { handleSubmit, resetForm } = useForm()
 const { updateProfile, updateUserPreferences } = useUserStore()
@@ -75,9 +76,7 @@ const updatePreferences = () => {
     v-model:showSettings="showSettings"
     @updatePreferences="updatePreferences"
   />
-  <div
-    class="w-full h-full max-h-[calc(100vh-9.5rem)] desktop:max-h-full overflow-y-auto text-gray-700 bg-gray-200 rounded-b-2xl flex flex-col gap-4 shadow-screen"
-  >
+  <MainContentWrapper>
     <UserSettings v-if="showSettings" v-model:preferences="currentPreferences" />
     <div v-else>
       <UserGallery />
@@ -89,6 +88,6 @@ const updatePreferences = () => {
         <UserLocation />
       </form>
     </div>
-  </div>
+  </MainContentWrapper>
   <NavigationPanel />
 </template>
