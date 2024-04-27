@@ -41,10 +41,11 @@ const useUserCard = (userData: Person) => {
     }
   }
 
-  const handleSwipeEnd = () => {
+  const handleSwipeEnd = (event: MouseEvent | TouchEvent) => {
     isSwiping.value = false
 
     const currentStyles = cardStyles.value
+    const timeoutDuration = event instanceof TouchEvent ? 200 : 0
 
     if (interaction.value === 'dislike') {
       cardStyles.value = {
@@ -53,7 +54,7 @@ const useUserCard = (userData: Person) => {
         rotate: currentStyles.rotate - 25,
         opacity: 0.5
       }
-      setTimeout(() => handleSwipe(userData?.id, 'dislike'), 200)
+      setTimeout(() => handleSwipe(userData?.id, 'dislike'), timeoutDuration)
     } else if (interaction.value === 'like') {
       cardStyles.value = {
         x: currentStyles.x + 20,
@@ -61,7 +62,7 @@ const useUserCard = (userData: Person) => {
         rotate: currentStyles.rotate + 25,
         opacity: 0.5
       }
-      setTimeout(() => handleSwipe(userData?.id, 'like'), 200)
+      setTimeout(() => handleSwipe(userData?.id, 'like'), timeoutDuration)
     } else {
       cardStyles.value = cardResetStyles
     }
