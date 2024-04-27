@@ -41,11 +41,12 @@ const useUserCard = (userData: Person) => {
     }
   }
 
-  const handleSwipeEnd = (event: MouseEvent | TouchEvent) => {
+  const handleSwipeEnd = () => {
+    const timeoutDuration = isSwiping.value ? 200 : 0
+    console.log(isSwiping.value)
     isSwiping.value = false
 
     const currentStyles = cardStyles.value
-    const timeoutDuration = event instanceof TouchEvent ? 200 : 0
 
     if (interaction.value === 'dislike') {
       cardStyles.value = {
