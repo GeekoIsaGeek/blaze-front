@@ -22,9 +22,9 @@ onMounted(async () => getMatches())
         <img
           :src="match?.photos[0]?.url"
           alt="profile photo"
-          class="rounded-[7px] w-24 min-w-24 h-28"
+          class="rounded-lg w-24 min-w-24 h-28"
         />
-        <span class="font-medium text-center leading-5 px-1 line-clamp-2 max-w-24">
+        <span class="font-medium text-center leading-5 line-clamp-2 max-w-24">
           {{ match?.username }}
         </span>
       </li>
