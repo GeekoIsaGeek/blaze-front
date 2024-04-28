@@ -43,7 +43,6 @@ const useUserCard = (userData: Person) => {
 
   const handleSwipeEnd = () => {
     const timeoutDuration = isSwiping.value ? 200 : 0
-    console.log(isSwiping.value)
     isSwiping.value = false
 
     const currentStyles = cardStyles.value
