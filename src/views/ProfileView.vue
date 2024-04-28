@@ -76,6 +76,7 @@ const updatePreferences = () => {
     v-model:showSettings="showSettings"
     @updatePreferences="updatePreferences"
   />
+
   <MainContentWrapper>
     <UserSettings v-if="showSettings" v-model:preferences="currentPreferences" />
     <div v-else>
