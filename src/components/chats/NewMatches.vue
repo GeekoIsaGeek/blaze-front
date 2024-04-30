@@ -10,13 +10,13 @@ onMounted(async () => getMatches())
 </script>
 
 <template>
-  <div class="overflow-x-hidden flex gap-3 flex-col">
+  <div class="overflow-x-hidden flex gap-2 flex-col">
     <h2 class="text-gray-700 font-bold">New Matches</h2>
     <ul v-if="matches?.length" class="flex gap-3 select-none overflow-x-auto snap-x">
       <li
         v-for="match in matches"
         :key="match?.id"
-        class="flex flex-col items-center gap-2 snap-start"
+        class="flex flex-col items-center gap-1.5 snap-start outline-none focus:saturate-150 hover:saturate-150 cursor-pointer transitions"
         tabindex="0"
       >
         <img
