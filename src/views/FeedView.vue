@@ -24,7 +24,7 @@ onMounted(async () => {
 
 <template>
   <div
-    class="pb-3 pt-2 w-full flex items-end text-lg px-[3%] text-primary font-semibold select-none"
+    class="pb-3 pt-2 w-full flex items-end text-lg px-[3%] text-textPrimary font-medium select-none"
   >
     <TheFireIcon class="fill-primary w-8 h-8" />
     Blaze

@@ -4,39 +4,25 @@ import ArrowDownCircle from '@/components/icons/TheArrowDownCircleIcon.vue'
 import SliderArrows from '@/components/feed/SliderArrows.vue'
 import UserCardIndicators from '@/components/feed/UserCardIndicators.vue'
 import { getPhotoUrl } from '@/helpers/string'
-import { computed, onMounted, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { RetrieveMatchedUserData } from '@/services/MatchedUser'
-import type { Person } from '@/types/MeetingPerson'
+import { computed, ref } from 'vue'
 import Loading from '@/components/shared/LoadingSpinner.vue'
+import type { Person } from '@/types/MeetingPerson'
+
+const props = defineProps<{
+  user: Person | undefined
+  isLoading: boolean
+}>()
 
 const showDetails = ref(false)
-const user = ref<Person>()
-
 const currentPhotoId = ref(0)
-const currentPhoto = computed(() => user.value?.photos?.[currentPhotoId.value])
-const { id: userId } = useRoute().params
-const isLoading = ref(false)
-const { push: navigate } = useRouter()
-
-onMounted(async () => {
-  isLoading.value = true
-  const userData = await RetrieveMatchedUserData(userId?.toString())
-  isLoading.value = false
-
-  if (!userData) {
-    navigate({ name: 'chats' })
-  } else {
-    user.value = userData
-  }
-})
+const currentPhoto = computed(() => props?.user?.photos?.[currentPhotoId.value])
 </script>
 <template>
-  <Loading v-if="isLoading" />
+  <Loading v-if="isLoading" class="mt-[50%]" />
 
   <div
     v-if="user"
-    class="w-full h-[84%] desktop:h-[82%] desktop:max-h-[82%] overflow-auto desktop:rounded-t-xl snap-y scroll-smooth absolute top-[8%] group"
+    class="w-full h-[88%] desktop:h-[86%] desktop:max-h-[86%] overflow-auto desktop:rounded-t-xl snap-y scroll-smooth absolute top-[8%] group"
   >
     <div
       class="bg-gradient-to-t from-black/80 desktop:from-black/60 from-20% to-60% to-transparent w-full h-full absolute top-0 left-0"
@@ -61,7 +47,7 @@ onMounted(async () => {
       @mousedown.stop
     >
       <TransitionWrapper idleClass="!-translate-x-14">
-        <div v-show="!showDetails">
+        <div v-show="!showDetails" class="mb-10">
           <h1 class="text-3xl font-bold text-white flex justify-between items-center">
             <p>
               {{ user?.username }}

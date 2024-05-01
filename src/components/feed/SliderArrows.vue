@@ -6,7 +6,7 @@ import type { Photo } from '@/types/Pinia'
 
 const props = defineProps<{
   photos: Photo[]
-  currentPhoto: Photo
+  currentPhoto: Photo | undefined
   currentPhotoId: number
 }>()
 

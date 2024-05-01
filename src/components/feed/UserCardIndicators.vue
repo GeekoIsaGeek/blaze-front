@@ -2,7 +2,7 @@
 import type { Photo } from '@/types/Pinia'
 
 defineProps<{
-  currentPhoto: Photo
+  currentPhoto: Photo | undefined
   photos: Photo[]
 }>()
 </script>
