@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import MatchedUserProfile from '@/components/matched-user-profile/MatchedUserProfile.vue'
 import { useRoute, useRouter } from 'vue-router'
-import { RetrieveMatchedUserData } from '@/services/MatchedUser'
+import { retrieveMatchedUserData } from '@/services/MatchedUser'
 import type { Person } from '@/types/MeetingPerson'
 import { onMounted, ref } from 'vue'
 import TransitionWrapper from '@/components/shared/TransitionWrapper.vue'
@@ -14,7 +14,7 @@ const { push: navigate } = useRouter()
 
 onMounted(async () => {
   isLoading.value = true
-  const userData = await RetrieveMatchedUserData(userId?.toString())
+  const userData = await retrieveMatchedUserData(userId?.toString())
   isLoading.value = false
 
   if (!userData) {

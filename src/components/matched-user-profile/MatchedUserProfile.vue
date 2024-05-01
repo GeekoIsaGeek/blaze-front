@@ -7,6 +7,8 @@ import { getPhotoUrl } from '@/helpers/string'
 import { computed, ref } from 'vue'
 import Loading from '@/components/shared/LoadingSpinner.vue'
 import type { Person } from '@/types/MeetingPerson'
+import { unmatch } from '@/services/MatchedUser'
+import { useRoute, useRouter } from 'vue-router'
 
 const props = defineProps<{
   user: Person | undefined
@@ -16,6 +18,15 @@ const props = defineProps<{
 const showDetails = ref(false)
 const currentPhotoId = ref(0)
 const currentPhoto = computed(() => props?.user?.photos?.[currentPhotoId.value])
+const { push: navigate } = useRouter()
+const { id } = useRoute().params
+
+const handleUnmatch = async () => {
+  const status = await unmatch(id?.toString())
+  if (status === 200) {
+    navigate({ name: 'chats' })
+  }
+}
 </script>
 <template>
   <Loading v-if="isLoading" class="mt-[50%]" />
@@ -71,8 +82,14 @@ const currentPhoto = computed(() => props?.user?.photos?.[currentPhotoId.value])
         @touchend.stop
       />
     </div>
-    <div class="snap-center">
+    <div class="snap-center" v-if="showDetails">
       <UserDetails :showDetails="showDetails" :data="user" @mousedown.stop @touchstart.stop />
+      <button
+        class="font-medium text-lg py-1.5 rounded-lg mx-auto shadow w-[80%] flex justify-center items-center bg-pinkishRed text-white transitions hover:text-gray-600 hover:bg-gray-100 border border-transparent hover:border-slate-300"
+        @click="handleUnmatch"
+      >
+        Unmatch
+      </button>
     </div>
   </div>
 </template>
