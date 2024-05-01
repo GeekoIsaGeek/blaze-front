@@ -5,6 +5,7 @@ import RegistrationView from '@/views/RegistrationView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import { useUserStore } from '@/stores/UserStore'
 import ChatView from '@/views/ChatView.vue'
+import MatchedUserProfileView from '@/views/MatchedUserProfileView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,6 +40,10 @@ const router = createRouter({
       component: ChatView
     },
     {
+      path: '/profiles/:id',
+      component: MatchedUserProfileView
+    },
+    {
       path: '/:catchAll(.*)',
       redirect: '/'
     }
@@ -52,7 +57,7 @@ router.beforeEach(async (to, from) => {
     await userStore.retrieveUserData()
   }
 
-  if (to.path === '/profile' || to.path === '/feed' || to.path.includes('chat')) {
+  if (to.path.includes('profile') || to.path === '/feed' || to.path.includes('chat')) {
     if (userStore.isAuthenticated) {
       return true
     } else {

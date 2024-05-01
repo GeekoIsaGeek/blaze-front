@@ -22,7 +22,10 @@ import { capitalize } from 'vue'
                 >Your Turn</span
               >
             </div>
-            <p>Agi raia simon?</p>
+            <p class="p-2">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias adipisci quibusdam et.
+              Voluptas harum quo, optio.
+            </p>
           </div>
         </div>
         <hr class="w-[calc(100%-5.75rem)] self-end" />

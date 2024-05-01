@@ -4,7 +4,7 @@ import type { Person } from '@/types/MeetingPerson'
 import { useMeetingPersonStore } from '@/stores/MeetingPersonStore'
 import { cardResetStyles } from '@/config/defaultValues'
 
-const useUserCard = (userData: Person) => {
+const useSwipe = (userData: Person) => {
   const currentPhotoId = ref(0)
   const currentPhoto = computed(() => userData?.photos?.[currentPhotoId.value])
   const showDetails = ref(false)
@@ -82,4 +82,4 @@ const useUserCard = (userData: Person) => {
   }
 }
 
-export default useUserCard
+export default useSwipe

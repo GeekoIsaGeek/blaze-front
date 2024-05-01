@@ -7,7 +7,7 @@ import TransitionWrapper from '@/components/shared/TransitionWrapper.vue'
 import { getPhotoUrl } from '@/helpers/string'
 import SwipeIndicator from '@/components/feed/SwipeIndicator.vue'
 import SliderArrows from '@/components/feed/SliderArrows.vue'
-import useUserCard from '@/composables/useUserCard'
+import useSwipe from '@/composables/useSwipe'
 import type { Person } from '@/types/MeetingPerson'
 import type { InteractionType } from '@/types/Unions'
 
@@ -26,7 +26,7 @@ const {
   showDetails,
   handleSwipe,
   isSwiping
-} = useUserCard(props.userData)
+} = useSwipe(props.userData)
 </script>
 
 <template>
@@ -57,7 +57,7 @@ const {
 
     <SwipeIndicator :interaction="interaction" />
 
-    <UserCardIndicators :currentPhoto="currentPhoto" :photos="userData.photos" />
+    <UserCardIndicators :currentPhoto="currentPhoto" :photos="userData?.photos" />
 
     <SliderArrows
       :photos="userData?.photos"
