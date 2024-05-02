@@ -82,11 +82,12 @@ const handleUnmatch = async () => {
         @touchend.stop
       />
     </div>
-    <div class="snap-center" v-if="showDetails">
+    <div class="snap-center">
       <UserDetails :showDetails="showDetails" :data="user" @mousedown.stop @touchstart.stop />
       <button
-        class="font-medium text-lg py-1.5 rounded-lg mx-auto shadow w-[80%] flex justify-center items-center bg-pinkishRed text-white transitions hover:text-gray-600 hover:bg-gray-100 border border-transparent hover:border-slate-300"
+        class="font-medium text-lg py-1.5 rounded-xl mx-auto shadow w-[60%] flex justify-center items-center bg-pinkishRed text-white transitions hover:text-gray-600 hover:bg-gray-100 border border-transparent hover:border-slate-300"
         @click="handleUnmatch"
+        v-if="showDetails"
       >
         Unmatch
       </button>

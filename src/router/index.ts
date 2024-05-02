@@ -41,6 +41,7 @@ const router = createRouter({
     },
     {
       path: '/profiles/:id',
+      name: 'matchedUserProfile',
       component: MatchedUserProfileView
     },
     {

@@ -20,7 +20,7 @@ onMounted(async () => getMatches())
         class="flex flex-col items-center gap-1.5 snap-start outline-none focus:saturate-150 hover:saturate-150 cursor-pointer transitions"
         tabindex="0"
       >
-        <RouterLink :to="`/profiles/${match?.id}`">
+        <RouterLink :to="{ name: 'matchedUserProfile', params: { id: match?.id } }">
           <img
             :src="match?.photos[0]?.url"
             alt="profile photo"
