@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
 import DetailsPageTopPanel from '@/components/shared/DetailsPageTopPanel.vue'
 import MainContentWrapper from '@/components/shared/MainContentWrapper.vue'
-
-const { id } = useRoute().params
+import PrivateChat from '@/components/chats/PrivateChat.vue'
 </script>
+
 <template>
   <DetailsPageTopPanel />
-  <MainContentWrapper class="p-4 bg-neutral-100">
-    <h1>{{ id }}</h1>
+  <MainContentWrapper class="p-4 bg-neutral-100 !max-h-full">
+    <PrivateChat />
   </MainContentWrapper>
 </template>
