@@ -58,6 +58,6 @@ const handleSubmit = (e: SubmitEvent) => {
       class="w-full bg-transparent outline-none pr-4"
       v-model="inputValue"
     />
-    <button type="submit">Send</button>
+    <button type="submit" class="text-textPrimary">Send</button>
   </form>
 </template>

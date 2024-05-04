@@ -3,6 +3,7 @@ import { onMounted } from 'vue'
 import { useMatchesStore } from '@/stores/MatchesStore'
 import { storeToRefs } from 'pinia'
 import { RouterLink } from 'vue-router'
+import NoContent from '../shared/NoContent.vue'
 
 const { getMatches } = useMatchesStore()
 const { matches } = storeToRefs(useMatchesStore())
@@ -32,5 +33,6 @@ onMounted(async () => getMatches())
         </RouterLink>
       </li>
     </ul>
+    <NoContent content="You got 0 matches!" v-else />
   </div>
 </template>

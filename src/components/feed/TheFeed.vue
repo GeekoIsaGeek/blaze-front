@@ -11,6 +11,6 @@ const { users, isLoading } = storeToRefs(useMeetingPersonStore())
   <Loading v-if="isLoading" />
   <div v-else>
     <UserCard v-for="user in users" :key="user.id" :userData="user" />
-    <NoContent v-if="users && users?.length < 2" />
+    <NoContent v-if="users && users?.length < 2" showOnFeed />
   </div>
 </template>
