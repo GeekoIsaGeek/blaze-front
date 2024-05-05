@@ -7,7 +7,7 @@ import { getPhotoUrl } from '@/helpers/string'
 import { computed, ref } from 'vue'
 import Loading from '@/components/shared/LoadingSpinner.vue'
 import type { Person } from '@/types/MeetingPerson'
-import { unmatch } from '@/services/MatchedUser'
+import { unmatch } from '@/services/Matches'
 import { useRoute, useRouter } from 'vue-router'
 
 const props = defineProps<{
@@ -39,7 +39,7 @@ const handleUnmatch = async () => {
       class="bg-gradient-to-t from-black/80 desktop:from-black/60 from-20% to-60% to-transparent w-full h-full absolute top-0 left-0"
     ></div>
     <img
-      :src="getPhotoUrl(currentPhoto?.url || '')"
+      :src="getPhotoUrl(currentPhoto?.url)"
       prefetch
       class="h-full w-full rounded-t-xl object-cover select-none"
     />

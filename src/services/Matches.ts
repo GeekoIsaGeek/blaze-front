@@ -1,10 +1,23 @@
 import request from '@/config/axiosInstance'
 import { getToken } from '@/helpers/tokens'
 
-export const retrieveMatchedUserData = async (userId: string) => {
-  if (!userId) throw new Error('userId is not defined')
-
+export const retrieveMatches = async () => {
   try {
+    const response = await request.get('/api/user/matches', {
+      headers: {
+        Authorization: `Bearer ${getToken('auth')}`
+      }
+    })
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const retrieveMatchedUserData = async (userId: string) => {
+  try {
+    if (!userId) throw new Error('userId is not defined')
+
     const response = await request.get(`/api/user/matches/${userId}`, {
       headers: {
         Authorization: `Bearer ${getToken('auth')}`
@@ -17,9 +30,9 @@ export const retrieveMatchedUserData = async (userId: string) => {
 }
 
 export const unmatch = async (userId: string) => {
-  if (!userId) throw new Error('userId is not defined')
-
   try {
+    if (!userId) throw new Error('userId is not defined')
+
     const { status } = await request.delete(`/api/user/matches/${userId}`, {
       headers: {
         Authorization: `Bearer ${getToken('auth')}`

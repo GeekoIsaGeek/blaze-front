@@ -30,7 +30,7 @@ const { path } = useRoute()
 
       <div class="my-14 flex gap-2 items-center justify-center w-full">
         <img
-          :src="getPhotoUrl(user?.photos[0]?.url || '')"
+          :src="getPhotoUrl(user?.photos[0]?.url)"
           class="rounded-full w-[6rem] h-[6rem] desktop:w-[8rem] desktop:h-[8rem] shadow-lg object-cover"
         />
 

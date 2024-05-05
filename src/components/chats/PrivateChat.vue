@@ -1,21 +1,29 @@
 <script setup lang="ts">
+import { retrieveMessages } from '@/services/Chat'
+import { useChatStore } from '@/stores/ChatStore'
 import { useUserStore } from '@/stores/UserStore'
-import { ref } from 'vue'
+import type { Message } from '@/types/Chats'
+import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { getPhotoUrl } from '@/helpers/string'
 
 const { id } = useRoute().params
 const { user } = useUserStore()
+const { getProfilePic, chats, getChats } = useChatStore()
 const inputValue = ref()
 
-const messages = [
-  { id: 1, senderId: 9, receiverId: user?.id, message: 'Lorem ipsum dor sit ameutus triudum' },
-  {
-    id: 2,
-    senderId: user?.id,
-    receiverId: 9,
-    message: 'A message that was sent by ' + user?.username
+const profilePicUrl = computed(() => getPhotoUrl(getProfilePic(Number(id?.toString()))))
+
+const messages = ref<Message[]>()
+
+onMounted(async () => {
+  const retrievedMessages = await retrieveMessages(id?.toString())
+  messages.value = retrievedMessages
+
+  if (!chats) {
+    await getChats()
   }
-]
+})
 
 const handleSubmit = (e: SubmitEvent) => {
   inputValue.value = ''
@@ -24,7 +32,7 @@ const handleSubmit = (e: SubmitEvent) => {
 
 <template>
   <ul
-    class="w-full flex gap-4 flex-col h-full max-h-[calc(100%-40px)] overflow-scroll outline-none"
+    class="w-full flex gap-x-4 gap-y-1.5 flex-col h-full max-h-[calc(100%-40px)] overflow-scroll outline-none"
     tabIndex="0"
     autofocus
   >
@@ -32,21 +40,17 @@ const handleSubmit = (e: SubmitEvent) => {
       v-for="message in messages"
       :key="message?.id"
       class="flex items-end gap-1 max-w-[70%]"
-      :class="[message?.senderId === user?.id && 'self-end flex-row-reverse']"
+      :class="[message?.sender_id === user?.id && 'self-end flex-row-reverse']"
     >
       <RouterLink
-        :to="{ name: 'matchedUserProfile', params: { id: message?.senderId } }"
-        v-if="message?.senderId !== user?.id"
+        :to="{ name: 'matchedUserProfile', params: { id: message?.sender_id } }"
+        v-if="message?.sender_id !== user?.id"
       >
-        <img
-          src="https://i.pinimg.com/236x/f4/49/9d/f4499d983e86461960f279712917424e.jpg"
-          alt="profile photo"
-          class="rounded-full w-10 h-10 object-cover"
-        />
+        <img :src="profilePicUrl" alt="profile photo" class="rounded-full w-10 h-10 object-cover" />
       </RouterLink>
       <p
         class="leading-5 px-3 py-2 rounded-xl"
-        :class="[message?.receiverId === user?.id ? 'bg-pinkishRed text-white' : 'bg-gray-200']"
+        :class="[message?.receiver_id === user?.id ? 'bg-pinkishRed text-white' : 'bg-gray-200']"
       >
         {{ message?.message }}
       </p>

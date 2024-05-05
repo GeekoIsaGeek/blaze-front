@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { retrieveChatPreviews } from '@/services/ChatsMatches'
-import type { ChatPreview } from '@/types/Chats'
-import { capitalize, onMounted, ref } from 'vue'
+import { capitalize, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { getPhotoUrl } from '@/helpers/string'
+import { useChatStore } from '@/stores/ChatStore'
+import { storeToRefs } from 'pinia'
 
-const chats = ref<ChatPreview[]>()
+const { chats } = storeToRefs(useChatStore())
+
+const { getChats } = useChatStore()
 
 onMounted(async () => {
-  const data = await retrieveChatPreviews()
-  chats.value = data
+  await getChats()
 })
 </script>
 <template>
@@ -21,7 +22,10 @@ onMounted(async () => {
         v-for="chat in chats"
         :key="chat?.user_id"
       >
-        <RouterLink :to="{ name: 'chat', params: { id: chat?.user_id } }" class="w-full">
+        <RouterLink
+          :to="{ name: 'chat', params: { id: chat?.user_id } }"
+          class="flex flex-col w-full"
+        >
           <div class="flex items-center gap-3 h-full w-full py-2 desktop:py-4">
             <img
               :src="getPhotoUrl(chat?.photo)"
@@ -31,7 +35,7 @@ onMounted(async () => {
               <div class="flex justify-between items-center">
                 <h3 class="text-lg font-medium">{{ capitalize(chat?.name) }}</h3>
                 <span
-                  class="font-medium text-white bg-black text-sm px-2.5 desktop:px-3 py-1 rounded-2xl desktop:rounded-full"
+                  class="min-w-max font-medium text-white bg-black text-sm px-2.5 desktop:px-3 py-1 rounded-2xl desktop:rounded-full"
                   >Your Turn</span
                 >
               </div>

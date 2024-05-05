@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import MatchedUserProfile from '@/components/matched-user-profile/MatchedUserProfile.vue'
 import { useRoute, useRouter } from 'vue-router'
-import { retrieveMatchedUserData } from '@/services/MatchedUser'
+import { retrieveMatchedUserData } from '@/services/Matches'
 import type { Person } from '@/types/MeetingPerson'
 import { onMounted, ref } from 'vue'
 import TransitionWrapper from '@/components/shared/TransitionWrapper.vue'

@@ -1,4 +1,4 @@
-import { retrieveMatches } from '@/services/ChatsMatches'
+import { retrieveMatches } from '@/services/Matches'
 import type { User } from '@/types/Pinia'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
