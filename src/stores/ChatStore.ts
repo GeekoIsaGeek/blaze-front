@@ -11,9 +11,16 @@ export const useChatStore = defineStore('chat', () => {
     chats.value = data
   }
 
-  const getProfilePic = (userId: number) => {
-    return chats?.value?.find((chat) => chat.user_id === userId)?.photo
+  const getProfilePic = (chatId: number) => {
+    return chats?.value?.find((chat) => chat.chat_id === chatId)?.photo
   }
 
-  return { chats, getChats, getProfilePic }
+  const getChat = async (userId: number) => {
+    if (!chats.value) {
+      await getChats()
+    }
+    return chats?.value?.find((chat) => chat.user_id === userId)
+  }
+
+  return { chats, getChats, getProfilePic, getChat }
 })

@@ -15,16 +15,35 @@ export const retrieveChatPreviews = async () => {
   }
 }
 
-export const retrieveMessages = async (participantId: string) => {
+export const retrieveMessages = async (chatId: string) => {
   try {
-    if (!participantId) throw new Error('participantId is not defined')
+    if (!chatId) throw new Error('chatId is not defined')
 
-    const response = await request.get(`/api/chats/${participantId}/messages`, {
+    const response = await request.get(`/api/chats/${chatId}/messages`, {
       headers: {
         Authorization: `Bearer ${getToken('auth')}`
       }
     })
     return response.data as Message[]
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const getChatId = async (userId: string) => {
+  try {
+    if (!userId) throw new Error('userId is not defined')
+
+    const response = await request.post(
+      `/api/chats/${userId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${getToken('auth')}`
+        }
+      }
+    )
+    return response.data
   } catch (error) {
     console.error(error)
   }

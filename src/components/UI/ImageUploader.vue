@@ -23,7 +23,7 @@ const canShowModal = ref(false)
 const handleUpload = async () => {
   const uploadedPhoto = await uploadPhoto(selectedImage.value!)
   if (uploadedPhoto?.url) {
-    emit('setPhoto', getPhotoUrl(uploadedPhoto.url))
+    emit('setPhoto', getPhotoUrl(uploadedPhoto.url) || '')
     updatePhotos(uploadedPhoto)
   }
   canShowModal.value = false

@@ -1,8 +1,12 @@
 export type ChatPreview = {
   photo: string
   name: string
-  message: string
+  message: {
+    text: string
+    sender_id: number
+  }
   user_id: number
+  chat_id: number
 }
 
 export type Message = {

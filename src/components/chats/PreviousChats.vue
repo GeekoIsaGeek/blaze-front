@@ -4,8 +4,10 @@ import { RouterLink } from 'vue-router'
 import { getPhotoUrl } from '@/helpers/string'
 import { useChatStore } from '@/stores/ChatStore'
 import { storeToRefs } from 'pinia'
+import { useUserStore } from '@/stores/UserStore'
 
 const { chats } = storeToRefs(useChatStore())
+const { user } = storeToRefs(useUserStore())
 
 const { getChats } = useChatStore()
 
@@ -23,7 +25,11 @@ onMounted(async () => {
         :key="chat?.user_id"
       >
         <RouterLink
-          :to="{ name: 'chat', params: { id: chat?.user_id } }"
+          :to="{
+            name: 'chat',
+            params: { id: chat?.chat_id },
+            query: { participant: chat?.user_id }
+          }"
           class="flex flex-col w-full"
         >
           <div class="flex items-center gap-3 h-full w-full py-2 desktop:py-4">
@@ -36,11 +42,12 @@ onMounted(async () => {
                 <h3 class="text-lg font-medium">{{ capitalize(chat?.name) }}</h3>
                 <span
                   class="min-w-max font-medium text-white bg-black text-sm px-2.5 desktop:px-3 py-1 rounded-2xl desktop:rounded-full"
+                  v-if="chat?.message?.sender_id !== user?.id"
                   >Your Turn</span
                 >
               </div>
               <p class="p-2 leading-5">
-                {{ chat?.message }}
+                {{ chat?.message?.text }}
               </p>
             </div>
           </div>

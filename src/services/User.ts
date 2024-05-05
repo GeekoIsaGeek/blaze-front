@@ -120,6 +120,21 @@ const deleteUser = async () => {
   }
 }
 
+const getProfilePic = async (id: string | undefined) => {
+  try {
+    if (!id) throw new Error('No user id provided')
+
+    const response = await request.get(`/api/users/${id}/pfp`, {
+      headers: {
+        Authorization: `Bearer ${getToken('auth')}`
+      }
+    })
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export {
   retrieveUser,
   updateUserGender,
@@ -128,5 +143,6 @@ export {
   updateUser,
   updatePreferences,
   logoutUser,
-  deleteUser
+  deleteUser,
+  getProfilePic
 }

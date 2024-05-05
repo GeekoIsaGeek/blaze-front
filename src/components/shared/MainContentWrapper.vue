@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TransitionWrapper from './TransitionWrapper.vue'
+import TransitionWrapper from '@/components/shared/TransitionWrapper.vue'
 </script>
 <template>
   <div

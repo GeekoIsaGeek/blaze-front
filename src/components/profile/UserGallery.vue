@@ -22,7 +22,7 @@ const galleryItems = computed(() => [
       <div class="grid grid-cols-3 w-full gap-4">
         <UserGalleryCard
           v-for="item in galleryItems"
-          :url="getPhotoUrl(item?.url as string)"
+          :url="getPhotoUrl(item?.url as string, false) || ''"
           :id="+item.id"
           :key="item.id"
         />
