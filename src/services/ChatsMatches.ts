@@ -13,3 +13,16 @@ export const retrieveMatches = async () => {
     console.error(error)
   }
 }
+
+export const retrieveChatPreviews = async () => {
+  try {
+    const response = await request.get('/api/chats/previews', {
+      headers: {
+        Authorization: `Bearer ${getToken('auth')}`
+      }
+    })
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}

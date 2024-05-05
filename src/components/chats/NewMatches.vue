@@ -3,7 +3,7 @@ import { onMounted } from 'vue'
 import { useMatchesStore } from '@/stores/MatchesStore'
 import { storeToRefs } from 'pinia'
 import { RouterLink } from 'vue-router'
-import NoContent from '../shared/NoContent.vue'
+import NoContent from '@/components/shared/NoContent.vue'
 
 const { getMatches } = useMatchesStore()
 const { matches } = storeToRefs(useMatchesStore())
@@ -21,7 +21,10 @@ onMounted(async () => getMatches())
         class="flex flex-col items-center gap-1.5 snap-start outline-none focus:saturate-150 hover:saturate-150 cursor-pointer transitions"
         tabindex="0"
       >
-        <RouterLink :to="{ name: 'matchedUserProfile', params: { id: match?.id } }">
+        <RouterLink
+          :to="{ name: 'matchedUserProfile', params: { id: match?.id } }"
+          class="flex flex-col gap-1"
+        >
           <img
             :src="match?.photos[0]?.url"
             alt="profile photo"
@@ -33,6 +36,6 @@ onMounted(async () => getMatches())
         </RouterLink>
       </li>
     </ul>
-    <NoContent content="You got 0 matches!" v-else />
+    <NoContent content="You got 0 new matches!" v-else />
   </div>
 </template>

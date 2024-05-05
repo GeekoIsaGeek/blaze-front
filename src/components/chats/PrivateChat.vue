@@ -8,11 +8,11 @@ const { user } = useUserStore()
 const inputValue = ref()
 
 const messages = [
-  { id: 1, senderId: 5, receiverId: user?.id, message: 'Lorem ipsum dor sit ameutus triudum' },
+  { id: 1, senderId: 9, receiverId: user?.id, message: 'Lorem ipsum dor sit ameutus triudum' },
   {
     id: 2,
     senderId: user?.id,
-    receiverId: 5,
+    receiverId: 9,
     message: 'A message that was sent by ' + user?.username
   }
 ]
@@ -32,14 +32,18 @@ const handleSubmit = (e: SubmitEvent) => {
       v-for="message in messages"
       :key="message?.id"
       class="flex items-end gap-1 max-w-[70%]"
-      :class="[message?.receiverId === user?.id && 'self-end flex-row-reverse']"
+      :class="[message?.senderId === user?.id && 'self-end flex-row-reverse']"
     >
-      <img
-        src="https://i.pinimg.com/236x/f4/49/9d/f4499d983e86461960f279712917424e.jpg"
-        alt="profile photo"
-        class="rounded-full w-10 h-10 object-cover"
-        v-if="message?.receiverId !== user?.id"
-      />
+      <RouterLink
+        :to="{ name: 'matchedUserProfile', params: { id: message?.senderId } }"
+        v-if="message?.senderId !== user?.id"
+      >
+        <img
+          src="https://i.pinimg.com/236x/f4/49/9d/f4499d983e86461960f279712917424e.jpg"
+          alt="profile photo"
+          class="rounded-full w-10 h-10 object-cover"
+        />
+      </RouterLink>
       <p
         class="leading-5 px-3 py-2 rounded-xl"
         :class="[message?.receiverId === user?.id ? 'bg-pinkishRed text-white' : 'bg-gray-200']"
@@ -61,3 +65,4 @@ const handleSubmit = (e: SubmitEvent) => {
     <button type="submit" class="text-textPrimary">Send</button>
   </form>
 </template>
+``
