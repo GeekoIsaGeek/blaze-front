@@ -40,11 +40,13 @@ const { path } = useRoute()
           class="rounded-full w-[6rem] h-[6rem] desktop:w-[8rem] desktop:h-[8rem] shadow-lg object-cover"
         />
       </div>
-      <button
+      <RouterLink
+        @click="$emit('handleClose')"
+        :to="{ name: 'matchedUserProfile', params: { id: liker?.id } }"
         class="py-2 font-semibold text-lg w-[90%] flex rounded-full justify-center bg-gradient-to-r from-hotpink via-pinkishRed to-orange border-2 border-transparent text-white shadow transitions hover:border-white"
       >
-        Send Message
-      </button>
+        See Profile
+      </RouterLink>
       <button
         class="py-2 font-semibold text-lg w-[90%] flex rounded-full justify-center border-2 border-hotpink transitions hover:bg-pinkishRed text-white shadow"
         @click="$emit('handleClose')"
