@@ -4,6 +4,7 @@ import { useMatchesStore } from '@/stores/MatchesStore'
 import { storeToRefs } from 'pinia'
 import { RouterLink } from 'vue-router'
 import NoContent from '@/components/shared/NoContent.vue'
+import { getPhotoUrl } from '@/helpers/string'
 
 const { getMatches } = useMatchesStore()
 const { matches } = storeToRefs(useMatchesStore())
@@ -26,9 +27,9 @@ onMounted(async () => getMatches())
           class="flex flex-col gap-1"
         >
           <img
-            :src="match?.photos[0]?.url"
+            :src="getPhotoUrl(match?.photos[0]?.url)"
             alt="profile photo"
-            class="rounded-lg w-24 min-w-24 h-28"
+            class="rounded-lg w-24 min-w-24 h-28 object-cover"
           />
           <span class="font-medium text-center leading-5 line-clamp-2 max-w-24">
             {{ match?.username }}

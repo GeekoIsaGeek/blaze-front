@@ -9,11 +9,14 @@ import Loading from '@/components/shared/LoadingSpinner.vue'
 import type { Person } from '@/types/MeetingPerson'
 import { unmatch } from '@/services/Matches'
 import { useRoute, useRouter } from 'vue-router'
+import DialogModal from '@/components/UI/DialogModal.vue'
 
 const props = defineProps<{
   user: Person | undefined
   isLoading: boolean
 }>()
+
+const showDialog = ref(false)
 
 const showDetails = ref(false)
 const currentPhotoId = ref(0)
@@ -86,11 +89,17 @@ const handleUnmatch = async () => {
       <UserDetails :showDetails="showDetails" :data="user" @mousedown.stop @touchstart.stop />
       <button
         class="font-medium text-md py-1.5 rounded-xl mx-auto shadow w-[50%] flex justify-center items-center bg-pinkishRed text-white transitions hover:text-gray-600 hover:bg-gray-100 border border-transparent hover:border-slate-300"
-        @click="handleUnmatch"
+        @click="() => (showDialog = true)"
         v-if="showDetails"
       >
         Unmatch
       </button>
     </div>
+    <DialogModal
+      v-if="showDialog"
+      @closeModal="() => (showDialog = false)"
+      @handler="handleUnmatch"
+      dialogQuestion="Your conversation is gonna be completely deleted and you won't be able to back it up in future. Would that work for you?"
+    />
   </div>
 </template>
