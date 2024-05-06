@@ -1,3 +1,5 @@
+import type { Message } from '@/types/Chats'
+
 export type MatchedEventData = {
   receiverId: number
   likerDetails: {
@@ -7,4 +9,8 @@ export type MatchedEventData = {
       url: string
     }
   }
+}
+
+export type MessageProcessedEventData = {
+  message: Message
 }

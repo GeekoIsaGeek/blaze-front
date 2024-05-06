@@ -48,3 +48,23 @@ export const getChatId = async (userId: string) => {
     console.error(error)
   }
 }
+
+export const sendMessage = async (receiverId: number, message: string) => {
+  try {
+    if (!receiverId || !message)
+      throw new Error('Make sure you are passing valid <receiverId> and <message> arguments')
+
+    const response = await request.post(
+      `/api/messages`,
+      { content: message, receiver_id: receiverId },
+      {
+        headers: {
+          Authorization: `Bearer ${getToken('auth')}`
+        }
+      }
+    )
+    return response.status
+  } catch (error) {
+    console.error(error)
+  }
+}

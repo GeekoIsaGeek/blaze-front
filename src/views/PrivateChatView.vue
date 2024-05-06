@@ -27,7 +27,8 @@ onMounted(async () => {
       />
     </RouterLink>
   </DetailsPageTopPanel>
-  <MainContentWrapper class="p-4 bg-neutral-100 !max-h-full object-cover">
+
+  <MainContentWrapper class="p-4 bg-neutral-100 object-cover">
     <PrivateChat />
   </MainContentWrapper>
 </template>

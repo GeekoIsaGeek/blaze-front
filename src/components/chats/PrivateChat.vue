@@ -1,23 +1,44 @@
 <script setup lang="ts">
-import { retrieveMessages } from '@/services/Chat'
+import { retrieveMessages, sendMessage } from '@/services/Chat'
 import { useChatStore } from '@/stores/ChatStore'
 import { useUserStore } from '@/stores/UserStore'
 import type { Message } from '@/types/Chats'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { getPhotoUrl } from '@/helpers/string'
+import { echo } from '@/config/echo'
+import type { MessageProcessedEventData } from '@/types/WebSocket'
 
-const { id } = useRoute().params
+const {
+  params: { id: chatId },
+  query: { participant }
+} = useRoute()
+
 const { user } = useUserStore()
 const { getProfilePic, chats, getChats } = useChatStore()
 const inputValue = ref()
 
-const profilePicUrl = computed(() => getPhotoUrl(getProfilePic(Number(id?.toString()))))
+const profilePicUrl = computed(() => getPhotoUrl(getProfilePic(Number(chatId?.toString()))))
 
 const messages = ref<Message[]>()
+const messageListRef = ref<HTMLUListElement | null>(null)
+
+watchEffect(() => {
+  if (messageListRef.value) {
+    messageListRef.value.scrollTop = messageListRef.value.scrollHeight
+  }
+})
 
 onMounted(async () => {
-  const retrievedMessages = await retrieveMessages(id?.toString())
+  echo
+    .private(`chat.${chatId}`)
+    .listen('.messageProcessed', ({ message }: MessageProcessedEventData) => {
+      if (message) {
+        messages.value = [...(messages.value || []), message]
+      }
+    })
+
+  const retrievedMessages = await retrieveMessages(chatId?.toString())
   messages.value = retrievedMessages
 
   if (!chats) {
@@ -25,16 +46,22 @@ onMounted(async () => {
   }
 })
 
-const handleSubmit = (e: SubmitEvent) => {
-  inputValue.value = ''
+const handleSubmit = async () => {
+  if (inputValue.value) {
+    const status = await sendMessage(Number(participant?.toString()), inputValue.value)
+    if (status === 201) {
+      inputValue.value = ''
+    }
+  }
 }
 </script>
 
 <template>
   <ul
-    class="w-full flex gap-x-4 gap-y-1.5 flex-col h-full max-h-[calc(100%-40px)] overflow-scroll outline-none"
+    class="w-full flex gap-x-4 gap-y-1.5 flex-col h-full overflow-y-auto outline-none"
     tabIndex="0"
     autofocus
+    ref="messageListRef"
   >
     <li
       v-for="message in messages"
@@ -55,6 +82,7 @@ const handleSubmit = (e: SubmitEvent) => {
         {{ message?.message }}
       </p>
     </li>
+    <div ref="chatEnd"></div>
   </ul>
   <form
     class="h-10 w-full border-rounded border border-gray-400 bg-gray-200 rounded-full px-4 flex justify-between items-center shadow"
