@@ -3,7 +3,7 @@ import { retrieveMessages, sendMessage } from '@/services/Chat'
 import { useChatStore } from '@/stores/ChatStore'
 import { useUserStore } from '@/stores/UserStore'
 import type { Message } from '@/types/Chats'
-import { computed, onMounted, ref, watchEffect } from 'vue'
+import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { getPhotoUrl } from '@/helpers/string'
 import { echo } from '@/config/echo'
@@ -23,11 +23,18 @@ const profilePicUrl = computed(() => getPhotoUrl(getProfilePic(Number(chatId?.to
 const messages = ref<Message[]>()
 const messageListRef = ref<HTMLUListElement | null>(null)
 
-watchEffect(() => {
+const scrollToBottom = () => {
   if (messageListRef.value) {
-    messageListRef.value.scrollTop = messageListRef.value.scrollHeight
+    new Promise((resolve) => setTimeout(resolve, 0)).then(() => {
+      messageListRef.value?.scrollTo({
+        top: messageListRef.value?.scrollHeight,
+        behavior: 'smooth'
+      })
+    })
   }
-})
+}
+
+watch(messages, scrollToBottom)
 
 onMounted(async () => {
   echo
@@ -58,7 +65,7 @@ const handleSubmit = async () => {
 
 <template>
   <ul
-    class="w-full flex gap-x-4 gap-y-1.5 flex-col h-full overflow-y-auto outline-none"
+    class="w-full flex gap-x-4 gap-y-1.5 flex-col h-full overflow-y-auto outline-none scroll-smooth"
     tabIndex="0"
     autofocus
     ref="messageListRef"
@@ -66,7 +73,7 @@ const handleSubmit = async () => {
     <li
       v-for="message in messages"
       :key="message?.id"
-      class="flex items-end gap-1 max-w-[70%]"
+      class="flex items-end gap-1 w-full"
       :class="[message?.sender_id === user?.id && 'self-end flex-row-reverse']"
     >
       <RouterLink
@@ -82,7 +89,6 @@ const handleSubmit = async () => {
         {{ message?.message }}
       </p>
     </li>
-    <div ref="chatEnd"></div>
   </ul>
   <form
     class="h-10 w-full border-rounded border border-gray-400 bg-gray-200 rounded-full px-4 flex justify-between items-center shadow"
@@ -97,4 +103,3 @@ const handleSubmit = async () => {
     <button type="submit" class="text-textPrimary">Send</button>
   </form>
 </template>
-``
