@@ -3,7 +3,7 @@ import { retrieveMessages, sendMessage } from '@/services/Chat'
 import { useChatStore } from '@/stores/ChatStore'
 import { useUserStore } from '@/stores/UserStore'
 import type { Message } from '@/types/Chats'
-import { computed, onMounted, ref, watch, watchEffect } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { getPhotoUrl } from '@/helpers/string'
 import { echo } from '@/config/echo'
@@ -25,12 +25,12 @@ const messageListRef = ref<HTMLUListElement | null>(null)
 
 const scrollToBottom = () => {
   if (messageListRef.value) {
-    new Promise((resolve) => setTimeout(resolve, 0)).then(() => {
+    setTimeout(() => {
       messageListRef.value?.scrollTo({
         top: messageListRef.value?.scrollHeight,
         behavior: 'smooth'
       })
-    })
+    }, 0)
   }
 }
 
