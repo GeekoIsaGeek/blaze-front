@@ -10,7 +10,7 @@ import PreviousChats from '@/components/chats/PreviousChats.vue'
     <TheFireIcon class="w-8 h-8 fill-primary" />
     <span class="text-xl font-medium text-textPrimary">Blaze</span>
   </div>
-  <MainContentWrapper class="p-4 bg-white">
+  <MainContentWrapper class="py-4 bg-white">
     <div>
       <NewMatches />
       <PreviousChats />

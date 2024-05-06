@@ -12,7 +12,7 @@ onMounted(async () => getMatches())
 </script>
 
 <template>
-  <div class="overflow-x-hidden flex gap-2 flex-col">
+  <div class="overflow-x-hidden flex gap-2 flex-col px-4">
     <h2 class="text-gray-700 font-bold">New Matches</h2>
     <ul v-if="matches?.length" class="flex gap-3 select-none overflow-x-auto snap-x">
       <li

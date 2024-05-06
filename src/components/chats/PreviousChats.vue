@@ -17,10 +17,10 @@ onMounted(async () => {
 </script>
 <template>
   <div class="overflow-y-hidden flex gap-3 flex-col mt-4">
-    <h2 class="text-gray-700 font-bold">Chats</h2>
+    <h2 class="text-gray-700 font-bold px-4">Chats</h2>
     <ul class="flex items-center flex-col h-full select-none overflow-y-auto scroll-smooth">
       <li
-        class="flex items-center flex-col h-full w-full hover:bg-gray-100 transitions rounded-md cursor-pointer"
+        class="flex items-center flex-col h-full w-full px-4 hover:bg-gray-100 transitions rounded-md cursor-pointer"
         v-for="chat in chats"
         :key="chat?.user_id"
       >
