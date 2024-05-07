@@ -31,7 +31,7 @@ const {
 
 <template>
   <div
-    class="w-full h-[84%] desktop:h-[82%] desktop:max-h-[82%] overflow-auto desktop:rounded-t-xl snap-y scroll-smooth absolute top-[8%] group"
+    class="w-full h-[80%] xs:h-[84%] desktop:h-[82%] desktop:max-h-[82%] overflow-auto desktop:rounded-t-xl snap-y scroll-smooth absolute group desktop:rounded-b-md"
     :class="[!isSwiping && '!transition-all !ease-linear !duration-[0.5s]']"
     @mousedown="handleSwipeStart"
     @mouseup="handleSwipeEnd"

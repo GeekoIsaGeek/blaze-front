@@ -8,6 +8,7 @@ import { useRoute } from 'vue-router'
 import { getPhotoUrl } from '@/helpers/string'
 import { echo } from '@/config/echo'
 import type { MessageProcessedEventData } from '@/types/WebSocket'
+import NoContent from '@/components/shared/NoContent.vue'
 
 const {
   params: { id: chatId },
@@ -89,6 +90,7 @@ const handleSubmit = async () => {
         {{ message?.message }}
       </p>
     </li>
+    <NoContent content="Nothing found" v-if="!messages?.length" />
   </ul>
   <form
     class="h-10 w-full border-rounded border border-gray-400 bg-gray-200 rounded-full px-4 flex justify-between items-center shadow"

@@ -77,7 +77,7 @@ const updatePreferences = () => {
     @updatePreferences="updatePreferences"
   />
 
-  <MainContentWrapper>
+  <MainContentWrapper :class="[showSettings && '!bg-white']">
     <UserSettings v-if="showSettings" v-model:preferences="currentPreferences" />
     <div v-else>
       <UserGallery />

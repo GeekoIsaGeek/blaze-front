@@ -94,7 +94,7 @@ const handleAccountDeletion = async () => {
         <p class="text-xl font-medium text-gray-500">Blaze ©</p>
       </div>
 
-      <div class="w-full flex justify-center">
+      <div class="w-full flex justify-center pb-10">
         <button
           class="py-2 text-center w-[70%] text-lg bg-pinkishRed/80 text-white hover:text-gray-600 hover:bg-gray-100 transitions border border-transparent hover:border-slate-300 shadow-sm rounded-md"
           @click="showModal = true"

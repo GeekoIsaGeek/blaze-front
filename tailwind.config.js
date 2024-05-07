@@ -13,7 +13,8 @@ export default {
         trueGreen: '#5cb85c'
       },
       screens: {
-        desktop: '640px'
+        desktop: '640px',
+        xs: '376px'
       },
       boxShadow: {
         screen: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;',
