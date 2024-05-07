@@ -4,12 +4,13 @@ import TearyEyes from '@/components/icons/TheTearyEyesIcon.vue'
 defineProps<{
   showOnFeed?: boolean
   content?: string
+  noLogo?: boolean
 }>()
 </script>
 
 <template>
   <div class="flex h-full w-full justify-center items-center flex-col">
-    <TearyEyes :class="[showOnFeed ? 'w-24 h-24' : 'w-16 h-16']" />
+    <TearyEyes :class="[showOnFeed ? 'w-24 h-24' : 'w-14 h-14']" v-if="!noLogo" />
     <p class="text-xl text-gray-700" :class="[showOnFeed ? 'my-10 !text-2xl' : 'my-4']">
       {{ content || 'No more options available!' }}
     </p>

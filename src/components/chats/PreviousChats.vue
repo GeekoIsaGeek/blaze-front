@@ -5,6 +5,7 @@ import { getPhotoUrl } from '@/helpers/string'
 import { useChatStore } from '@/stores/ChatStore'
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '@/stores/UserStore'
+import NoContent from '@/components/shared/NoContent.vue'
 
 const { chats } = storeToRefs(useChatStore())
 const { user } = storeToRefs(useUserStore())
@@ -19,6 +20,7 @@ onMounted(async () => {
   <div class="overflow-y-hidden flex gap-3 flex-col mt-4">
     <h2 class="text-gray-700 font-bold px-4">Chats</h2>
     <ul class="flex items-center flex-col h-full select-none overflow-y-auto scroll-smooth">
+      <NoContent content="No chats found!" noLogo />
       <li
         class="flex items-center flex-col h-full w-full px-4 hover:bg-gray-100 transitions rounded-md cursor-pointer"
         v-for="chat in chats"
