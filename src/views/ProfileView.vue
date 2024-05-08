@@ -22,6 +22,11 @@ const { query } = useRoute()
 
 const userPreferences = useUserStore().user?.preference
 
+const accountSettings = ref<{
+  username?: string
+  email?: string
+}>()
+
 const currentPreferences = ref({
   show: userPreferences?.show,
   age_from: userPreferences?.age_from,
@@ -48,7 +53,7 @@ const handleUpdate = handleSubmit(async (values) => {
 })
 
 const updatePreferences = () => {
-  const payload: UpdatedPreferences = {}
+  let payload: UpdatedPreferences = {}
 
   if (currentPreferences.value?.show && !(currentPreferences.value.show === userPreferences?.show))
     payload.show = currentPreferences.value.show
@@ -65,6 +70,10 @@ const updatePreferences = () => {
   )
     payload.age_to = currentPreferences.value.age_to
 
+  if (accountSettings.value) {
+    updateProfile(accountSettings.value)
+  }
+
   updateUserPreferences(payload)
   showSettings.value = false
 }
@@ -78,7 +87,11 @@ const updatePreferences = () => {
   />
 
   <MainContentWrapper :class="[showSettings && '!bg-white']">
-    <UserSettings v-if="showSettings" v-model:preferences="currentPreferences" />
+    <UserSettings
+      v-if="showSettings"
+      v-model:preferences="currentPreferences"
+      v-model:accountSettings="accountSettings"
+    />
     <div v-else>
       <UserGallery />
       <form @submit="handleUpdate" class="flex flex-col gap-4">

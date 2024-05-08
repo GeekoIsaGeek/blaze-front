@@ -10,19 +10,22 @@ import { logoutUser, deleteUser } from '@/services/User'
 import { useUserStore } from '@/stores/UserStore'
 import { useRouter } from 'vue-router'
 import DialogModal from '@/components/UI/DialogModal.vue'
+import type { ProfileForm } from '@/types/Forms'
 
 const showDropdown = ref(false)
-const { clearUser } = useUserStore()
+const { clearUser, user } = useUserStore()
 const { push: navigate } = useRouter()
 
 const showModal = ref(false)
 
 const props = defineProps<{
   preferences: Preference
+  accountSettings: ProfileForm
 }>()
 
 const emit = defineEmits<{
   'update:preferences': [Preference]
+  'update:accountSettings': [ProfileForm]
 }>()
 
 const handleSelect = (selected: string) =>
@@ -53,6 +56,12 @@ const handleAccountDeletion = async () => {
     navigate({ name: 'register' })
   }
 }
+
+const updateAccountSettings = (key: 'email' | 'username', value: string) => {
+  if (value) {
+    emit('update:accountSettings', { ...props.accountSettings, [key]: value })
+  }
+}
 </script>
 <template>
   <Transition
@@ -81,6 +90,38 @@ const handleAccountDeletion = async () => {
         />
       </div>
       <AgeRangeSlider @handleAgeRangeChange="handleAgeRangeChange" />
+
+      <h2 class="pl-4 font-medium text-lg pb-2 text-center mt-4">Account</h2>
+      <div class="flex items-center border px-4 border-slate-300">
+        <label for="email" class="pr-4 border-r border-slate-400 font-medium">Email</label>
+        <input
+          type="text"
+          class="w-full h-14 outline-none pl-4"
+          name="email"
+          id="email"
+          placeholder="Enter your email"
+          :value="user?.email"
+          @change="
+            (e: InputEvent) =>
+              updateAccountSettings('email', (e?.target as HTMLInputElement)?.value)
+          "
+        />
+      </div>
+      <div class="flex items-center border px-4 border-slate-300 mt-4">
+        <label for="username" class="pr-4 border-r border-slate-400 font-medium">Username</label>
+        <input
+          type="text"
+          class="w-full h-14 outline-none pl-4"
+          name="username"
+          id="username"
+          placeholder="Enter your username"
+          :value="user?.username"
+          @change="
+            (e: InputEvent) =>
+              updateAccountSettings('username', (e?.target as HTMLInputElement)?.value)
+          "
+        />
+      </div>
 
       <button
         class="p-4 text-center w-full text-lg mt-12 hover:bg-gray-100 transitions border-y shadow-sm border-slate-300"
