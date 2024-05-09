@@ -18,8 +18,8 @@ Blaze is a swipe app, similar to Tinder, which includes every core feature of a 
 ### Tech Stack
 
 - <img src="readme/assets/typescript.png" height="14" style="position: relative; top: 4px; margin-right: 5px" /> [Typescript](https://www.typescriptlang.org/) - strongly typed programming language that builds on JavaScript
-- <img src="readme/assets/vue.png" height="14" style="position: relative; top: 4px; margin-right: 5px" /> [Vue-3 (vue-router, vue-i18n)](https://vuejs.org/) - framework for building web user interfaces
-- <img src="readme/assets/vee-validate.png" height="19" style="position: relative; top: 4px; margin-right: 3px" /> [VeeValidate](https://vee-validate.logaretm.com/v4) - takes care of value tracking, validation, errors, submissions and more.
+- <img src="readme/assets/vue.png" height="14" style="position: relative; top: 4px; margin-right: 5px" /> [Vue-3 (vue-router)](https://vuejs.org/) - framework for building web user interfaces
+- <img src="readme/assets/vee-validate.png" height="19" style="position: relative; top: 4px; margin-right: 3px" /> [VeeValidate, Yup](https://vee-validate.logaretm.com/v4) - takes care of value tracking, validation, errors, submissions and more.
 - <img src="readme/assets/pinia.svg" height="19" style="position: relative; top: 4px; margin-right: 10px" /> [Pinia](https://pinia.vuejs.org/) - the intuitive store for Vue.js
 - <img src="readme/assets/tailwind.png" height="19" style="position: relative; top: 4px; margin-right: 3px" /> [Tailwind](https://tailwindcss.com/) - utility-first css framework
 
