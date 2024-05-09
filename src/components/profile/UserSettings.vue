@@ -99,8 +99,7 @@ const updateAccountSettings = (key: 'email' | 'username', value: string) => {
           class="w-full h-14 outline-none pl-4"
           name="email"
           id="email"
-          placeholder="Enter your email"
-          :value="user?.email"
+          :placeholder="user?.email"
           @change="
             (e: InputEvent) =>
               updateAccountSettings('email', (e?.target as HTMLInputElement)?.value)
@@ -114,8 +113,7 @@ const updateAccountSettings = (key: 'email' | 'username', value: string) => {
           class="w-full h-14 outline-none pl-4"
           name="username"
           id="username"
-          placeholder="Enter your username"
-          :value="user?.username"
+          :placeholder="user?.username"
           @change="
             (e: InputEvent) =>
               updateAccountSettings('username', (e?.target as HTMLInputElement)?.value)
