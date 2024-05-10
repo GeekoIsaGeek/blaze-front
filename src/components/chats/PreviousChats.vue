@@ -20,7 +20,7 @@ onMounted(async () => {
   <div class="overflow-y-hidden flex gap-3 flex-col mt-4">
     <h2 class="text-gray-700 font-bold px-4">Chats</h2>
     <ul class="flex items-center flex-col h-full select-none overflow-y-auto scroll-smooth">
-      <NoContent content="No chats found!" noLogo />
+      <NoContent content="No chats found!" noLogo v-if="!chats?.length" />
       <li
         class="flex items-center flex-col h-full w-full px-4 hover:bg-gray-100 transitions rounded-md cursor-pointer"
         v-for="chat in chats"

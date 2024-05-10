@@ -90,7 +90,7 @@ const handleSubmit = async () => {
         {{ message?.message }}
       </p>
     </li>
-    <NoContent content="Nothing found" v-if="!messages?.length" />
+    <NoContent content="Start a conversation" v-if="!messages?.length" noLogo />
   </ul>
   <form
     class="h-10 w-full border-rounded border border-gray-400 bg-gray-200 rounded-full px-4 flex justify-between items-center shadow"
