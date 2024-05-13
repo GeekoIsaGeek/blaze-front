@@ -3,12 +3,15 @@ import { retrieveMessages, sendMessage } from '@/services/Chat'
 import { useChatStore } from '@/stores/ChatStore'
 import { useUserStore } from '@/stores/UserStore'
 import type { Message } from '@/types/Chats'
-import { computed, onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { getPhotoUrl } from '@/helpers/string'
 import { echo } from '@/config/echo'
 import type { MessageProcessedEventData } from '@/types/WebSocket'
 import NoContent from '@/components/shared/NoContent.vue'
+
+defineProps<{
+  profilePicUrl: string | undefined
+}>()
 
 const {
   params: { id: chatId },
@@ -16,10 +19,8 @@ const {
 } = useRoute()
 
 const { user } = useUserStore()
-const { getProfilePic, chats, getChats } = useChatStore()
+const { chats, getChats } = useChatStore()
 const inputValue = ref()
-
-const profilePicUrl = computed(() => getPhotoUrl(getProfilePic(Number(chatId?.toString()))))
 
 const messages = ref<Message[]>()
 const messageListRef = ref<HTMLUListElement | null>(null)

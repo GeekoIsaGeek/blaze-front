@@ -8,7 +8,7 @@ import { onMounted, ref } from 'vue'
 import { getProfilePic } from '@/services/User'
 
 const { query } = useRoute()
-const profilePic = ref()
+const profilePic = ref<string>()
 
 onMounted(async () => {
   profilePic.value = await getProfilePic(query?.participant?.toString())
@@ -23,12 +23,12 @@ onMounted(async () => {
       <img
         :src="getPhotoUrl(profilePic)"
         alt="profile photo"
-        class="rounded-full !w-10 !h-10 shadow-pfp"
+        class="rounded-full !w-10 !h-10 shadow-pfp object-cover"
       />
     </RouterLink>
   </DetailsPageTopPanel>
 
   <MainContentWrapper class="p-4 bg-neutral-100 object-cover">
-    <PrivateChat />
+    <PrivateChat :profilePicUrl="getPhotoUrl(profilePic)" />
   </MainContentWrapper>
 </template>

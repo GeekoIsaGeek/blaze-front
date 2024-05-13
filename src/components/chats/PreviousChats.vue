@@ -37,7 +37,7 @@ onMounted(async () => {
           <div class="flex items-center gap-3 h-full w-full py-2 desktop:py-4">
             <img
               :src="getPhotoUrl(chat?.photo)"
-              class="rounded-full w-16 h-16 desktop:w-20 desktop:h-20 shadow"
+              class="rounded-full w-16 h-16 desktop:w-20 desktop:h-20 shadow object-cover"
             />
             <div class="flex flex-col w-full h-full">
               <div class="flex justify-between items-center">
