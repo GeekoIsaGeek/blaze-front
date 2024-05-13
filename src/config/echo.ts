@@ -20,3 +20,7 @@ export const echo = new Echo({
   },
   authEndpoint: `${import.meta.env.VITE_SERVER_URL}/api/broadcasting/auth`
 })
+
+export const setAuthToken = () => {
+  echo.connector.options.auth.headers.Authorization = `Bearer ${getToken('auth')}`
+}

@@ -5,7 +5,7 @@ import { useUserStore } from '@/stores/UserStore'
 import type { Message } from '@/types/Chats'
 import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { echo } from '@/config/echo'
+import { echo, setAuthToken } from '@/config/echo'
 import type { MessageProcessedEventData } from '@/types/WebSocket'
 import NoContent from '@/components/shared/NoContent.vue'
 
@@ -39,6 +39,7 @@ const scrollToBottom = () => {
 watch(messages, scrollToBottom)
 
 onMounted(async () => {
+  setAuthToken()
   echo
     .private(`chat.${chatId}`)
     .listen('.messageProcessed', ({ message }: MessageProcessedEventData) => {

@@ -5,7 +5,7 @@ import { onMounted } from 'vue'
 import { useMeetingPersonStore } from '@/stores/MeetingPersonStore'
 import Feed from '@/components/feed/TheFeed.vue'
 import { useUserStore } from '@/stores/UserStore'
-import { echo } from '@/config/echo'
+import { echo, setAuthToken } from '@/config/echo'
 import type { MatchedEventData } from '@/types/WebSocket'
 
 const { getMeetingUsers, updateMatchedUser } = useMeetingPersonStore()
@@ -14,6 +14,7 @@ const { user } = useUserStore()
 onMounted(async () => {
   await getMeetingUsers()
 
+  setAuthToken()
   echo.private(`match.${user?.id}`).listen('.matched', (data: MatchedEventData) => {
     if (data) {
       updateMatchedUser(data?.likerDetails)
