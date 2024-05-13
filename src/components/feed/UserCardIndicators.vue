@@ -14,7 +14,7 @@ defineProps<{
       :key="i"
       :class="[
         'w-full h-[4px] rounded-full ',
-        currentPhoto === image ? 'bg-white' : 'bg-[rgba(255,255,255,0.4)]'
+        currentPhoto?.id === image?.id ? 'bg-white' : 'bg-[rgba(255,255,255,0.4)]'
       ]"
     ></li>
   </ul>
