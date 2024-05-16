@@ -100,3 +100,5 @@ You can run development server by executing:
 - tailwind.config.js
 - vite.config.ts
 ```
+
+[Backend Repo](https://github.com/GeekoIsaGeek/blaze-back)
